@@ -2,7 +2,7 @@
 layout: default
 img: phones.png
 category: Services
-title: Google Web Fonts and<br>Font Awesome Icons
+title: Our knowledge stack
 description: |
 ---
-This template features the 'Lato' font, part of the [Google Web Font library](http://www.google.com/fonts), as well as [icons from Font Awesome](http://fontawesome.io).
+We know C#, ASP.NET Web Forms, ASP.NET MVC, ORMs, REST, SOAP, WS*, WCF, WIF, WPF, SAP, BizTalk, CRM, Network (TCP, UDP, HTTP), Java, Solr, Ruby/Rails, Python/Django, JavaScript, Objective-C, F#
