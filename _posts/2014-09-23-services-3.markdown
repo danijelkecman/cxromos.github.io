@@ -5,4 +5,4 @@ category: Services
 title: Our knowledge stack
 description: |
 ---
-We know C#, ASP.NET Web Forms, ASP.NET MVC, ORMs, REST, SOAP, WS*, WCF, WIF, WPF, SAP, BizTalk, CRM, Network (TCP, UDP, HTTP), Java, Solr, Ruby/Rails, Python/Django, JavaScript, Objective-C, F#
+We work with C#, ASP.NET Web Forms, ASP.NET MVC, ORMs, REST, SOAP, WS*, WCF, WIF, WPF, SAP, BizTalk, CRM, Network (TCP, UDP, HTTP), Java, Solr, Ruby/Rails, Python/Django, JavaScript, Objective-C, F#
