@@ -5,4 +5,4 @@ category: Services
 title: Our knowledge stack
 description: |
 ---
-We work with C#, ASP.NET Web Forms, ASP.NET MVC, ORMs, REST, SOAP, WS*, WCF, WIF, WPF, SAP, BizTalk, CRM, Network (TCP, UDP, HTTP), Java, Solr, Ruby/Rails, Python/Django, JavaScript, Objective-C, Swift, F#, PHP
+We work with .NET Core Stack for Enterprise and APIs, REST, SOAP, WS*, WCF, WIF, (TCP, UDP, HTTP), Java Boot Framework, Ruby/Rails REST APIs, Python/Django/Flask REST APIs, JavaScript, Objective-C, Swift, Java, Kotlin

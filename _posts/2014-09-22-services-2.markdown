@@ -5,4 +5,4 @@ category: Services
 title: IoT across your business
 description: |
 ---
-  We support Win, OSX, Linux, Mobile (iOS, Android, WP7/8, BlackBerry clients), AWS, Azure, RackSpace, DigitalOcean, Parse, Arduino, Netduino, Rabsberry Pi
+  We use Patterns, Principles, Enteprise Patterns, Resource Oritented Style, Service Oritented Style, ESB, Orchestration, Event Sourcing, CQRS, DDD, SOLID, OOP, OOD, TDD, BDD, Kanban, Lean
