@@ -5,4 +5,4 @@ category: Services
 title: Our knowledge stack
 description: |
 ---
-We work with .NET Core Stack for Enterprise and APIs, REST, SOAP, WS*, WCF, WIF, (TCP, UDP, HTTP), Java Boot Framework, Ruby/Rails REST APIs, Python/Django/Flask REST APIs, JavaScript, Objective-C, Swift, Java, Kotlin
+We work with .NET Core Stack for Enterprise and APIs, REST, SOAP, WS*, WCF, WIF, (TCP, UDP, HTTP), Java Spring Boot Framework, Ruby/Rails REST APIs, Python/Django/Flask REST APIs, JavaScript, Objective-C, Swift, Java, Kotlin
