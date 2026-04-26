@@ -5,4 +5,4 @@ category: Services
 title: IoT across your business
 description: |
 ---
-  We support Win and Linux Server Side, Mobile Clients (native iOS and Android), AWS, Azure, RackSpace, DigitalOcean, Parse, Arduino, Netduino, Rabsberry Pi
+  We support Win and Linux Server Side, Mobile Clients (native iOS and Android), AWS, Azure, RackSpace, DigitalOcean, Parse, Arduino, Netduino, Raspberry Pi

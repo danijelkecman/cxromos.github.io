@@ -1,10 +1,10 @@
 # Landing Page Jekyll theme
 
-Jekyll theme based on [landing-page bootstrap theme ](http://startbootstrap.com/templates/landing-page/)
+Jekyll theme based on the [Landing Page Bootstrap theme](http://startbootstrap.com/templates/landing-page/)
 
 ## How to use
- - Place a image in `/img/services/`
- - Create posts to display your services. Use the follow as an example:
+ - Place an image in `/img/services/`
+ - Create posts to display your services. Use the following example:
 
 ```txt
 ---
@@ -17,7 +17,7 @@ The description of this service
 ```
 
 ## Demo
-View this jekyll theme in action [here](https://swcool.github.io/landing-page-theme)
+View this Jekyll theme in action [here](https://swcool.github.io/landing-page-theme)
 
 ## Screenshot
 ![screenshot](https://raw.githubusercontent.com/swcool/landing-page-theme/master/img/screenshot.png)
@@ -25,7 +25,7 @@ View this jekyll theme in action [here](https://swcool.github.io/landing-page-th
 ===
 
 For more Jekyll details, read [documentation](http://jekyllrb.com/).
-This Jekyll theme used [Freelancer Jekyll theme](https://github.com/jeromelachaud/freelancer-theme/) as reference.
+This Jekyll theme used the [Freelancer Jekyll theme](https://github.com/jeromelachaud/freelancer-theme/) as a reference.
 
 ## License
 The contents of this repository are licensed under the [Apache
