@@ -38,9 +38,18 @@ npm run preview
 2. In GitHub, go to **Settings → Pages**.
 3. Set **Source** to **GitHub Actions**.
 4. Make sure your DNS points `cxromos.com` to GitHub Pages.
-5. Push to `main`.
+5. Push to `master` or `main`.
 
 The included workflow at `.github/workflows/deploy.yml` builds and deploys the site.
+
+## Important GitHub Pages note
+
+This repository is named `cxromos.github.io`, but it lives under the `danijelkecman` account.
+That makes it a project site repository, not a user site repository.
+
+- The default Pages URL is `https://danijelkecman.github.io/cxromos.github.io/`
+- `https://danijelkecman.github.io/` will 404 unless there is a separate repository named `danijelkecman.github.io`
+- If `cxromos.com` still shows the old site, GitHub Pages is probably still publishing from the `gh-pages` branch instead of `GitHub Actions`
 
 ## Important files
 
