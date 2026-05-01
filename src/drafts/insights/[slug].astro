@@ -3,8 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const posts = Object.entries(import.meta.glob('../../content/insights/*.md', { eager: true }));
-  return posts.map(([_, post]: any) => ({
-    params: { slug: post.frontmatter.slug },
+  return posts.map(([path, post]: any) => ({
+    params: { slug: path.split('/').pop()?.replace(/\.md$/, '') },
     props: { post }
   }));
 }
