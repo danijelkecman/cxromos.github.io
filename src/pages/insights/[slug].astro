@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = Object.entries(import.meta.glob('../../content/insights/*.md', { eager: true }));
+  return posts.map(([_, post]: any) => ({
+    params: { slug: post.frontmatter.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = post;
+---
+<BaseLayout title={`${post.frontmatter.title} — CxRomos`} description={post.frontmatter.description}>
+  <article class="mx-auto max-w-3xl px-6 py-24 lg:px-8">
+    <a href="/insights" class="text-sm font-medium text-signal hover:text-sky-300">← Insights</a>
+    <p class="mt-8 text-sm text-slate-400">{post.frontmatter.date}</p>
+    <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white md:text-5xl">{post.frontmatter.title}</h1>
+    <p class="mt-5 text-xl leading-8 text-slate-300">{post.frontmatter.description}</p>
+    <div class="prose prose-invert prose-slate mt-12 max-w-none prose-headings:text-white prose-a:text-signal prose-strong:text-white">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

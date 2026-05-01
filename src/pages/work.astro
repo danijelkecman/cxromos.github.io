@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+---
+<BaseLayout title="Work — CxRomos" description="CxRomos focus areas: aviation software, operational intelligence, routing systems, and AI-assisted workflows.">
+  <Section eyebrow="Work" title="Focused capabilities, not a menu of generic services." description="These are the areas where CxRomos should be judged: systems engineering, operational reasoning, geospatial logic, and AI workflows that survive contact with reality.">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <Card title="Real-time mobile operations platform">Architecture for field workflows, live state, notifications, offline-aware mobile systems, and backend event processing.</Card>
+      <Card title="Aviation routing & waypoint intelligence">Graph-based route construction, spatial corridor search, waypoint matching, risk overlays, and map-driven operational UX.</Card>
+      <Card title="AI workflow prototypes">LLM-assisted monitoring, document intelligence, structured reasoning over operational data, and human-in-the-loop review systems.</Card>
+    </div>
+  </Section>
+</BaseLayout>

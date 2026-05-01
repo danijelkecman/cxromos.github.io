@@ -1,35 +1,86 @@
-# Landing Page Jekyll theme
+# CxRomos AstroWind-style site
 
-Jekyll theme based on the [Landing Page Bootstrap theme](http://startbootstrap.com/templates/landing-page/)
+A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos positioning site.
 
-## How to use
- - Place an image in `/img/services/`
- - Create posts to display your services. Use the following example:
+This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos content, structure, design direction, and GitHub Pages deployment already wired in.
 
-```txt
----
-layout: default
-img: ipad.png
-category: Services
-title: The service title
----
-The description of this service
+## Positioning
+
+> CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows.
+
+## Stack
+
+- Astro
+- Tailwind CSS
+- Markdown content for insights
+- GitHub Pages deployment through GitHub Actions
+- Custom domain support via `public/CNAME`
+
+## Local development
+
+```bash
+npm install
+npm run dev
 ```
 
-## Demo
-View this Jekyll theme in action [here](https://swcool.github.io/landing-page-theme)
+Open the local URL printed by Astro.
 
-## Screenshot
-![screenshot](https://raw.githubusercontent.com/swcool/landing-page-theme/master/img/screenshot.png)
+## Build
 
-===
+```bash
+npm run build
+npm run preview
+```
 
-For more Jekyll details, read [documentation](http://jekyllrb.com/).
-This Jekyll theme used the [Freelancer Jekyll theme](https://github.com/jeromelachaud/freelancer-theme/) as a reference.
+## Deploy to GitHub Pages
 
-## License
-The contents of this repository are licensed under the [Apache
-2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+1. Push this project to your `cxromos.com` GitHub repository.
+2. In GitHub, go to **Settings → Pages**.
+3. Set **Source** to **GitHub Actions**.
+4. Make sure your DNS points `cxromos.com` to GitHub Pages.
+5. Push to `main`.
 
-## Version
-1.0.1
+The included workflow at `.github/workflows/deploy.yml` builds and deploys the site.
+
+## Important files
+
+```text
+src/pages/index.astro          Homepage
+src/pages/about.astro          Founder/company narrative
+src/pages/work.astro           Focus areas
+src/pages/contact.astro        Contact page
+src/pages/insights/            Insights listing and article template
+src/content/insights/          Markdown articles
+src/components/                Reusable UI sections
+src/layouts/BaseLayout.astro   SEO/base HTML layout
+public/CNAME                   Custom domain
+.github/workflows/deploy.yml   GitHub Pages deployment
+```
+
+## Content edits
+
+Most copy lives directly inside the `.astro` pages.
+
+Blog-style posts live in:
+
+```text
+src/content/insights/
+```
+
+Each post needs frontmatter:
+
+```yaml
+---
+title: "Post title"
+description: "Post description"
+date: "2026-05-01"
+slug: "post-slug"
+---
+```
+
+## Suggested next improvements
+
+- Add real screenshots or diagrams from your aviation/routing work.
+- Add one serious technical case study under `/work`.
+- Replace generic proof points with concrete metrics when available.
+- Add links to GitHub, LinkedIn, and danijel.co once you decide how public each should be.

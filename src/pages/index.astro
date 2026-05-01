@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+---
+<BaseLayout>
+  <section class="grid-bg relative overflow-hidden">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-32">
+      <div>
+        <p class="mb-5 inline-flex rounded-full border border-signal/30 bg-signal/10 px-4 py-2 text-sm font-medium text-signal">
+          AI-native operational intelligence
+        </p>
+        <h1 class="text-balance text-5xl font-semibold tracking-tight text-white md:text-7xl">
+          Software for real-time decisions where mistakes are expensive.
+        </h1>
+        <p class="mt-7 max-w-2xl text-xl leading-8 text-slate-300">
+          CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows.
+        </p>
+        <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+          <Button href="/contact">Discuss a project</Button>
+          <Button href="/insights" variant="secondary">Read technical notes</Button>
+        </div>
+      </div>
+      <div class="relative rounded-[2rem] border border-white/10 bg-panel/80 p-6 shadow-soft">
+        <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-signal/20 blur-3xl"></div>
+        <div class="space-y-4">
+          <div class="rounded-2xl border border-line bg-ink/70 p-5">
+            <div class="flex items-center justify-between text-sm text-slate-400">
+              <span>Operational graph</span><span>live</span>
+            </div>
+            <svg viewBox="0 0 520 260" class="mt-4 h-auto w-full" role="img" aria-label="Route intelligence diagram">
+              <defs>
+                <linearGradient id="route" x1="0" x2="1" y1="0" y2="0">
+                  <stop stop-color="#38bdf8" />
+                  <stop offset="1" stop-color="#f97316" />
+                </linearGradient>
+              </defs>
+              <path d="M45 202 C 130 100, 205 185, 280 96 S 420 52, 477 132" fill="none" stroke="url(#route)" stroke-width="5" stroke-linecap="round" />
+              <g fill="#38bdf8">
+                <circle cx="45" cy="202" r="9"/><circle cx="167" cy="139" r="7"/><circle cx="280" cy="96" r="9"/><circle cx="390" cy="71" r="7"/><circle cx="477" cy="132" r="9"/>
+              </g>
+              <g fill="#f97316">
+                <circle cx="228" cy="170" r="6"/><circle cx="355" cy="118" r="6"/><circle cx="430" cy="91" r="6"/>
+              </g>
+              <g stroke="#1f3148" stroke-width="1">
+                <path d="M0 220H520"/><path d="M0 170H520"/><path d="M0 120H520"/><path d="M0 70H520"/>
+                <path d="M80 0V260"/><path d="M180 0V260"/><path d="M280 0V260"/><path d="M380 0V260"/><path d="M480 0V260"/>
+              </g>
+            </svg>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl border border-line bg-ink/70 p-4"><div class="text-2xl font-semibold text-white">Graph</div><p class="mt-1 text-sm text-slate-400">routing logic</p></div>
+            <div class="rounded-2xl border border-line bg-ink/70 p-4"><div class="text-2xl font-semibold text-white">AI</div><p class="mt-1 text-sm text-slate-400">decision support</p></div>
+            <div class="rounded-2xl border border-line bg-ink/70 p-4"><div class="text-2xl font-semibold text-white">Ops</div><p class="mt-1 text-sm text-slate-400">real-time systems</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section eyebrow="The problem" title="Operational teams are drowning in fragmented data." description="Routes, constraints, alerts, weather, documents, system events, and human judgment are often split across tools that were never designed to reason together.">
+    <div class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-2xl font-medium leading-10 text-white shadow-soft">
+      The next generation of software will not be dashboards. It will be decision infrastructure.
+    </div>
+  </Section>
+
+  <Section eyebrow="What we build" title="Systems that convert complexity into trusted operational decisions.">
+    <div class="grid gap-6 md:grid-cols-3">
+      <Card title="Real-time operational systems">Routing, monitoring, alerts, mobile workflows, event-driven infrastructure, and internal tools that operators can trust under pressure.</Card>
+      <Card title="AI-assisted workflows">LLM interfaces over structured data, document intelligence, operator copilots, and decision support with explicit guardrails.</Card>
+      <Card title="Aviation & geospatial software">Flight routing, waypoint logic, spatial search, map systems, risk overlays, and graph-based operational intelligence.</Card>
+    </div>
+  </Section>
+
+  <Section eyebrow="Technical proof" title="Built on engineering, not theater.">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {['Swift / iOS', 'Cloud systems', 'Graph algorithms', 'Geospatial routing', 'Real-time messaging', 'AI / LLM workflows', 'Enterprise integration', 'Product architecture'].map((item) => (
+        <div class="rounded-2xl border border-line bg-panel/70 p-5 font-medium text-slate-100">{item}</div>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Current focus" title="AI-native software for aviation, operational intelligence, and high-consequence decision systems." description="CxRomos works where software has to be explainable, fast, integrated, and useful to humans making real decisions.">
+    <div class="flex flex-col gap-4 sm:flex-row">
+      <Button href="/work">View focus areas</Button>
+      <Button href="/about" variant="secondary">About the founder</Button>
+    </div>
+  </Section>
+</BaseLayout>
