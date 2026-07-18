@@ -11,8 +11,8 @@ This project is not a raw clone of AstroWind. It is an AstroWind-style implement
 ## Stack
 
 - Astro
-- Tailwind CSS
-- Markdown content for insights
+- Tailwind CSS 4 (via `@tailwindcss/vite`; theme tokens live in `src/styles/global.css`)
+- Markdown content for insights (KaTeX math via remark-math/rehype-katex)
 - GitHub Pages deployment through GitHub Actions
 - Custom domain support via `public/CNAME`
 
@@ -58,13 +58,19 @@ src/pages/index.astro          Homepage
 src/pages/about.astro          Founder/company narrative
 src/pages/work.astro           Focus areas
 src/pages/contact.astro        Contact page
-src/pages/insights/            Insights listing and article template
+src/pages/404.astro            Not-found page
+src/drafts/insights/           Insights listing and article template (unpublished)
 src/content/insights/          Markdown articles
 src/components/                Reusable UI sections
 src/layouts/BaseLayout.astro   SEO/base HTML layout
+src/styles/global.css          Tailwind theme tokens and global styles
 public/CNAME                   Custom domain
 .github/workflows/deploy.yml   GitHub Pages deployment
 ```
+
+The insights section is currently unpublished. To publish it, move
+`src/drafts/insights/` to `src/pages/insights/` and Astro will pick up the
+routes on the next build.
 
 ## Content edits
 
@@ -76,14 +82,13 @@ Blog-style posts live in:
 src/content/insights/
 ```
 
-Each post needs frontmatter:
+Each post needs frontmatter (the URL slug is the markdown filename):
 
 ```yaml
 ---
 title: "Post title"
 description: "Post description"
 date: "2026-05-01"
-slug: "post-slug"
 ---
 ```
 
