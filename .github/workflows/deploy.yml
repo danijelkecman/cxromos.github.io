@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main, master]
+  schedule:
+    # Daily rebuild so the homepage "operational signal" chart rotates and
+    # picks up fresh data. On fetch failure the committed fallback data is used.
+    - cron: '23 5 * * *'
   workflow_dispatch:
 
 permissions:
@@ -20,6 +24,9 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Fetch today's operational signal
+        run: node scripts/fetch-signal.mjs
+        continue-on-error: true
       - name: Install, build, and upload your site
         uses: withastro/action@v4
   deploy:
