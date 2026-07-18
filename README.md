@@ -14,10 +14,13 @@ This project is not a raw clone of AstroWind. It is an AstroWind-style implement
 - Tailwind CSS 4 (via `@tailwindcss/vite`; theme tokens live in `src/styles/global.css`)
 - Markdown content for insights (KaTeX math via remark-math/rehype-katex)
 - Live homepage signal chart: `scripts/fetch-signal.mjs` pulls one free real-world
-  data source per day (OpenSky flights, ECB EUR/USD, USGS earthquakes, NASA EONET
-  wildfires) into `src/data/operational-signal.json`; a daily cron in the deploy
-  workflow rebuilds the site with fresh data, and the committed JSON is the
-  fallback when a source is down
+  data source per day into `src/data/operational-signal.json` — ships (aisstream
+  AIS), asteroids (NASA NeoWs), equities (Polygon), severe storms and floods and
+  wildfires (NASA EONET), supply chain (Cass index via FRED), flights (OpenSky),
+  solar flares (NASA DONKI), EUR/USD (ECB), earthquakes (USGS). A daily cron in
+  the deploy workflow rebuilds the site with fresh data; keyed sources read repo
+  secrets and every signal falls through to the next when its source is down,
+  with the committed JSON as final fallback
 - GitHub Pages deployment through GitHub Actions
 - Custom domain support via `public/CNAME`
 

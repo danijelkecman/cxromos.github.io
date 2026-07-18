@@ -1,49 +1,41 @@
 {
-  "id": "flights",
-  "label": "Flights over Europe, west to east",
-  "unit": "airborne aircraft per longitude band",
-  "source": "OpenSky Network",
+  "id": "asteroids",
+  "label": "Near-Earth asteroid passes per day",
+  "unit": "close approaches per day",
+  "source": "NASA NeoWs",
   "updated": "2026-07-18",
   "points": [
     {
-      "t": "-13°E",
-      "v": 43
+      "t": "07-11",
+      "v": 5
     },
     {
-      "t": "-8°E",
-      "v": 196
+      "t": "07-12",
+      "v": 6
     },
     {
-      "t": "-4°E",
-      "v": 379
+      "t": "07-13",
+      "v": 1
     },
     {
-      "t": "1°E",
-      "v": 525
+      "t": "07-14",
+      "v": 4
     },
     {
-      "t": "5°E",
-      "v": 414
+      "t": "07-15",
+      "v": 4
     },
     {
-      "t": "10°E",
-      "v": 545
+      "t": "07-16",
+      "v": 5
     },
     {
-      "t": "14°E",
-      "v": 413
+      "t": "07-17",
+      "v": 3
     },
     {
-      "t": "19°E",
-      "v": 344
-    },
-    {
-      "t": "23°E",
-      "v": 276
-    },
-    {
-      "t": "28°E",
-      "v": 178
+      "t": "07-18",
+      "v": 6
     }
   ]
 }

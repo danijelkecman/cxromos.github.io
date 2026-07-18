@@ -106,6 +106,82 @@ const signals = [
     }
   },
   {
+    id: 'asteroids',
+    label: 'Near-Earth asteroid passes per day',
+    unit: 'close approaches per day',
+    source: 'NASA NeoWs',
+    async fetch() {
+      const key = process.env.NASA_API_KEY;
+      if (!key) throw new Error('NASA_API_KEY not set');
+      const start = dayUTC(Date.now() - 7 * 86_400_000);
+      const end = dayUTC(Date.now());
+      const data = await getJson(
+        `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start}&end_date=${end}&api_key=${key}`
+      );
+      return Object.entries(data.near_earth_objects ?? {})
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, list]) => ({ t: date.slice(5), v: list.length }));
+    }
+  },
+  {
+    id: 'storms',
+    label: 'Active severe storm systems per day',
+    unit: 'tracked systems per day, worldwide',
+    source: 'NASA EONET',
+    async fetch() {
+      const data = await getJson(
+        'https://eonet.gsfc.nasa.gov/api/v3/events?category=severeStorms&days=35&status=all'
+      );
+      const days = lastNDays(14);
+      return days.map((d) => {
+        let active = 0;
+        for (const e of data.events ?? []) {
+          const dates = (e.geometry ?? []).map((g) => g.date?.slice(0, 10)).filter(Boolean);
+          if (dates.length && dates[0] <= d && d <= dates[dates.length - 1]) active++;
+        }
+        return { t: d.slice(5), v: active };
+      });
+    }
+  },
+  {
+    id: 'floods',
+    label: 'New flood events per day',
+    unit: 'events per day, worldwide',
+    source: 'NASA EONET',
+    async fetch() {
+      const data = await getJson('https://eonet.gsfc.nasa.gov/api/v3/events?category=floods&days=14&status=all');
+      const days = lastNDays(14);
+      const counts = new Map(days.map((d) => [d, 0]));
+      for (const e of data.events ?? []) {
+        const d = e.geometry?.[0]?.date?.slice(0, 10);
+        if (d && counts.has(d)) counts.set(d, counts.get(d) + 1);
+      }
+      return days.map((d) => ({ t: d.slice(5), v: counts.get(d) }));
+    }
+  },
+  {
+    id: 'solar-flares',
+    label: 'Solar flares per day',
+    unit: 'GOES-observed flares per day',
+    source: 'NASA DONKI',
+    async fetch() {
+      const key = process.env.NASA_API_KEY;
+      if (!key) throw new Error('NASA_API_KEY not set');
+      const start = dayUTC(Date.now() - 13 * 86_400_000);
+      const end = dayUTC(Date.now());
+      const data = await getJson(
+        `https://api.nasa.gov/DONKI/FLR?startDate=${start}&endDate=${end}&api_key=${key}`
+      );
+      const days = lastNDays(14);
+      const counts = new Map(days.map((d) => [d, 0]));
+      for (const f of data ?? []) {
+        const d = f.beginTime?.slice(0, 10);
+        if (d && counts.has(d)) counts.set(d, counts.get(d) + 1);
+      }
+      return days.map((d) => ({ t: d.slice(5), v: counts.get(d) }));
+    }
+  },
+  {
     id: 'flights',
     label: 'Flights over Europe, west to east',
     unit: 'airborne aircraft per longitude band',
