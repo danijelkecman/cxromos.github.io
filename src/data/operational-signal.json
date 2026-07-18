@@ -1,65 +1,49 @@
 {
-  "id": "wildfires",
-  "label": "New wildfire events per day",
-  "unit": "events per day, worldwide",
-  "source": "NASA EONET",
+  "id": "flights",
+  "label": "Flights over Europe, west to east",
+  "unit": "airborne aircraft per longitude band",
+  "source": "OpenSky Network",
   "updated": "2026-07-18",
   "points": [
     {
-      "t": "07-05",
-      "v": 2
+      "t": "-13°E",
+      "v": 43
     },
     {
-      "t": "07-06",
-      "v": 3
+      "t": "-8°E",
+      "v": 196
     },
     {
-      "t": "07-07",
-      "v": 6
+      "t": "-4°E",
+      "v": 379
     },
     {
-      "t": "07-08",
-      "v": 10
+      "t": "1°E",
+      "v": 525
     },
     {
-      "t": "07-09",
-      "v": 12
+      "t": "5°E",
+      "v": 414
     },
     {
-      "t": "07-10",
-      "v": 3
+      "t": "10°E",
+      "v": 545
     },
     {
-      "t": "07-11",
-      "v": 3
+      "t": "14°E",
+      "v": 413
     },
     {
-      "t": "07-12",
-      "v": 3
+      "t": "19°E",
+      "v": 344
     },
     {
-      "t": "07-13",
-      "v": 6
+      "t": "23°E",
+      "v": 276
     },
     {
-      "t": "07-14",
-      "v": 0
-    },
-    {
-      "t": "07-15",
-      "v": 6
-    },
-    {
-      "t": "07-16",
-      "v": 3
-    },
-    {
-      "t": "07-17",
-      "v": 0
-    },
-    {
-      "t": "07-18",
-      "v": 0
+      "t": "28°E",
+      "v": 178
     }
   ]
 }

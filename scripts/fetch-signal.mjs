@@ -23,6 +23,89 @@ function lastNDays(n) {
 
 const signals = [
   {
+    id: 'ships',
+    label: 'Ships in the North Sea & English Channel, west to east',
+    unit: 'unique vessels per longitude band, 45s AIS sample',
+    source: 'aisstream.io',
+    async fetch() {
+      const key = process.env.AISSTREAM_API_KEY;
+      if (!key) throw new Error('AISSTREAM_API_KEY not set');
+      const lo = -6;
+      const hi = 13;
+      const bins = 10;
+      const seen = Array.from({ length: bins }, () => new Set());
+      await new Promise((resolve, reject) => {
+        const ws = new WebSocket('wss://stream.aisstream.io/v0/stream');
+        const timer = setTimeout(() => {
+          ws.close();
+          resolve();
+        }, 45_000);
+        ws.onopen = () =>
+          ws.send(
+            JSON.stringify({
+              APIKey: key,
+              BoundingBoxes: [[[48, lo], [62, hi]]],
+              FilterMessageTypes: ['PositionReport']
+            })
+          );
+        ws.onmessage = async (e) => {
+          try {
+            const text = typeof e.data === 'string' ? e.data : await e.data.text();
+            const m = JSON.parse(text);
+            const mmsi = m?.MetaData?.MMSI;
+            const lon = m?.MetaData?.longitude;
+            if (!mmsi || typeof lon !== 'number') return;
+            const i = Math.min(bins - 1, Math.max(0, Math.floor(((lon - lo) / (hi - lo)) * bins)));
+            seen[i].add(mmsi);
+          } catch {
+            // ignore malformed frames
+          }
+        };
+        ws.onerror = () => {
+          clearTimeout(timer);
+          reject(new Error('websocket error'));
+        };
+      });
+      return seen.map((s, i) => ({
+        t: `${Math.round(lo + ((i + 0.5) * (hi - lo)) / bins)}°E`,
+        v: s.size
+      }));
+    }
+  },
+  {
+    id: 'equities',
+    label: 'S&P 500 (SPY) daily close',
+    unit: 'US dollars per share',
+    source: 'Polygon.io',
+    async fetch() {
+      const key = process.env.POLYGON_API_KEY;
+      if (!key) throw new Error('POLYGON_API_KEY not set');
+      const from = dayUTC(Date.now() - 30 * 86_400_000);
+      const to = dayUTC(Date.now());
+      const data = await getJson(
+        `https://api.polygon.io/v2/aggs/ticker/SPY/range/1/day/${from}/${to}?adjusted=true&sort=asc&apiKey=${key}`
+      );
+      return (data.results ?? []).map((r) => ({ t: dayUTC(r.t).slice(5), v: r.c }));
+    }
+  },
+  {
+    id: 'supply-chain',
+    label: 'US freight shipments, Cass index',
+    unit: 'index level, monthly, trailing 13 months',
+    source: 'Cass Information Systems via FRED',
+    async fetch() {
+      const key = process.env.FRED_API_KEY;
+      if (!key) throw new Error('FRED_API_KEY not set');
+      const data = await getJson(
+        `https://api.stlouisfed.org/fred/series/observations?series_id=FRGSHPUSM649NCIS&api_key=${key}&file_type=json&sort_order=desc&limit=13`
+      );
+      return (data.observations ?? [])
+        .filter((o) => o.value !== '.')
+        .reverse()
+        .map((o) => ({ t: o.date.slice(2, 7), v: Number(o.value) }));
+    }
+  },
+  {
     id: 'flights',
     label: 'Flights over Europe, west to east',
     unit: 'airborne aircraft per longitude band',
