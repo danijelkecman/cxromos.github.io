@@ -4,13 +4,16 @@ import Button from '../components/Button.astro';
 import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
 import signal from '../data/operational-signal.json';
-import { scaleSeries, smoothPath, waypointIndices, peakIndices } from '../lib/chart';
+import { scaleSeries, smoothPath, waypointIndices, peakIndices, yAxisTicks } from '../lib/chart';
 
 const values = signal.points.map((p) => p.v);
-const pts = scaleSeries(values, 45, 477, 60, 210);
+const pts = scaleSeries(values, 60, 477, 55, 205);
 const pathD = smoothPath(pts);
 const waypoints = waypointIndices(pts.length, 5);
 const peaks = peakIndices(values, 3, waypoints);
+const yTicks = yAxisTicks(values); // [min, mid, max] rendered bottom to top
+const yTickYs = [205, 130, 55];
+const xTicks = waypointIndices(pts.length, 5);
 ---
 <BaseLayout>
   <section class="grid-bg relative overflow-hidden">
@@ -46,8 +49,14 @@ const peaks = peakIndices(values, 3, waypoints);
                 </linearGradient>
               </defs>
               <g stroke="#1f3148" stroke-width="1">
-                <path d="M0 220H520"/><path d="M0 170H520"/><path d="M0 120H520"/><path d="M0 70H520"/>
-                <path d="M80 0V260"/><path d="M180 0V260"/><path d="M280 0V260"/><path d="M380 0V260"/><path d="M480 0V260"/>
+                {yTickYs.map((y) => <path d={`M60 ${y}H477`} />)}
+                {xTicks.map((i) => <path d={`M${pts[i].x} 55V212`} />)}
+              </g>
+              <g fill="#64748b" font-size="11" text-anchor="end">
+                {yTicks.map((label, i) => <text x="52" y={yTickYs[i] + 4}>{label}</text>)}
+              </g>
+              <g fill="#64748b" font-size="11" text-anchor="middle">
+                {xTicks.map((i) => <text x={pts[i].x} y="232">{signal.points[i].t}</text>)}
               </g>
               <path d={pathD} fill="none" stroke="url(#route)" stroke-width="5" stroke-linecap="round" />
               <g fill="#f97316">

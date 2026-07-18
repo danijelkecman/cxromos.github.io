@@ -45,6 +45,21 @@ export function waypointIndices(length: number, k: number): number[] {
   return Array.from({ length: k }, (_, i) => Math.round((i * (length - 1)) / (k - 1)));
 }
 
+/**
+ * Three y-axis ticks (min, mid, max) with just enough decimals to tell them
+ * apart — 1.1383/1.1425/1.1467 for tight FX ranges, integers for counts.
+ */
+export function yAxisTicks(values: number[]): string[] {
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = max - min || 1;
+  const allInt = values.every((v) => Number.isInteger(v));
+  const decimals = allInt ? 0 : Math.max(0, 1 - Math.floor(Math.log10(span)));
+  const mid = (min + max) / 2;
+  const midDecimals = allInt && !Number.isInteger(mid) && span < 10 ? 1 : decimals;
+  return [min.toFixed(decimals), mid.toFixed(midDecimals), max.toFixed(decimals)];
+}
+
 /** Indices of the k largest values, excluding the given indices. */
 export function peakIndices(values: number[], k: number, exclude: number[]): number[] {
   const skip = new Set(exclude);

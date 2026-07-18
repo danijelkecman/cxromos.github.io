@@ -13,6 +13,7 @@ async function getJson(url) {
 }
 
 const dayUTC = (ms) => new Date(ms).toISOString().slice(0, 10);
+const fmtLon = (lon) => (lon < 0 ? `${Math.round(-lon)}°W` : `${Math.round(lon)}°E`);
 
 function lastNDays(n) {
   const days = [];
@@ -67,7 +68,7 @@ const signals = [
         };
       });
       return seen.map((s, i) => ({
-        t: `${Math.round(lo + ((i + 0.5) * (hi - lo)) / bins)}°E`,
+        t: fmtLon(lo + ((i + 0.5) * (hi - lo)) / bins),
         v: s.size
       }));
     }
@@ -102,7 +103,7 @@ const signals = [
       return (data.observations ?? [])
         .filter((o) => o.value !== '.')
         .reverse()
-        .map((o) => ({ t: o.date.slice(2, 7), v: Number(o.value) }));
+        .map((o) => ({ t: o.date.slice(0, 7), v: Number(o.value) }));
     }
   },
   {
@@ -201,7 +202,7 @@ const signals = [
         if (i >= 0) counts[i]++;
       }
       return counts.map((v, i) => ({
-        t: `${Math.round(lo + ((i + 0.5) * (hi - lo)) / bins)}°E`,
+        t: fmtLon(lo + ((i + 0.5) * (hi - lo)) / bins),
         v
       }));
     }
