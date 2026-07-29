@@ -8,7 +8,7 @@ address
 ## Naming
 
 Replace visible, metadata, README, and internal documentation references to
-`CxRomos` with `CxRomos, LLC`
+`CxRomos, LLC` with `CxRomos, LLC`
 
 Do not change technical identifiers:
 
@@ -45,7 +45,7 @@ new contact methods
 
 ## Verification
 
-- Confirm no standalone company-name occurrences of `CxRomos` remain
+- Confirm no standalone company-name occurrences of `CxRomos, LLC` remain
 - Confirm domains, email addresses, repository names, and paths are unchanged
 - Confirm the address renders on Contact and Footer
 - Run slop scans, Astro checking, the production build, and project contracts

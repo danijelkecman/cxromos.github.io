@@ -1,12 +1,12 @@
-# CxRomos AstroWind-style site
+# CxRomos, LLC AstroWind-style site
 
-A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos positioning site.
+A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos, LLC positioning site.
 
-This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos content, structure, design direction, and GitHub Pages deployment already wired in.
+This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos, LLC content, structure, design direction, and GitHub Pages deployment already wired in.
 
 ## Positioning
 
-> CxRomos builds AI-native operational software for aerospace and satellite intelligence, OSINT, risk and financial systems, markets, banking applications, IoT, edge devices, telemetry, and high-consequence decision workflows.
+> CxRomos, LLC builds AI-native operational software for aerospace and satellite intelligence, OSINT, risk and financial systems, markets, banking applications, IoT, edge devices, telemetry, and high-consequence decision workflows.
 
 ## Stack
 

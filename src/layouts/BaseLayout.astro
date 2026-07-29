@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'CxRomos - AI-native operational intelligence software',
-  description = 'CxRomos builds AI-native operational software for aerospace and satellite intelligence, risk and financial systems, markets, banking, IoT, edge devices, and telemetry.'
+  title = 'CxRomos, LLC - AI-native operational intelligence software',
+  description = 'CxRomos, LLC builds AI-native operational software for aerospace and satellite intelligence, risk and financial systems, markets, banking, IoT, edge devices, and telemetry.'
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -22,7 +22,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta property="og:site_name" content="CxRomos" />
+    <meta property="og:site_name" content="CxRomos, LLC" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />

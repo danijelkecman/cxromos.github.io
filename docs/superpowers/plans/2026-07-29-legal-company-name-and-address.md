@@ -39,7 +39,7 @@
 
 - [ ] **Step 1: Replace bounded company-name references**
 
-Replace `CxRomos` with `CxRomos, LLC` only where it denotes the company or
+Replace `CxRomos, LLC` with `CxRomos, LLC` only where it denotes the company or
 brand. Do not replace text inside domains, email addresses, repository names,
 file paths, or route paths
 
@@ -86,7 +86,7 @@ git commit -m "Add legal company name and address"
 Run:
 
 ```bash
-rg -n -P 'CxRomos(?!, LLC|\\.com)' src README.md docs
+rg -n -P 'CxRomos, LLC(?!, LLC|\\.com)' src README.md docs
 rg -n 'CxRomos, LLC|131 Continental Dr|Suite 305|Newark, DE 19713 US' src
 rg -n 'cxromos\\.com|danijel@cxromos\\.com|cxromos\\.github\\.io' src README.md docs
 ```

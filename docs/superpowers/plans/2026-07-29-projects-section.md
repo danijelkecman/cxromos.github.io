@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Preserve the existing dark CxRomos visual system and responsive layout
+- Preserve the existing dark CxRomos, LLC visual system and responsive layout
 - The navigation order must be Work, Projects, Insights, About, Contact
 - The initial project route must be `/projects/risk-watch`
 - The Risk Watch call to action must target `https://riskwatchgroup.com/`
@@ -172,7 +172,7 @@ const projects = (await getCollection('projects'))
 
 Render the page with:
 
-- `BaseLayout` title `Projects - CxRomos`
+- `BaseLayout` title `Projects - CxRomos, LLC`
 - Eyebrow `Projects`
 - Heading `Operational systems, built to be used.`
 - Introductory copy explaining that these are working products and focused

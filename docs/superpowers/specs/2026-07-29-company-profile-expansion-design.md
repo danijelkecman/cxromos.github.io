@@ -2,7 +2,7 @@
 
 ## Goal
 
-Expand CxRomos company-profile copy to represent its work across aerospace,
+Expand CxRomos, LLC company-profile copy to represent its work across aerospace,
 satellite data, OSINT, risk and finance, markets, banking applications, IoT,
 edge devices, and telemetry
 

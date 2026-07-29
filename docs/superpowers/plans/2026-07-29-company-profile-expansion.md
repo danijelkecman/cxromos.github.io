@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Expand CxRomos company-profile positioning across aerospace, satellite data, OSINT, risk and finance, markets, banking applications, IoT, edge devices, and telemetry
+**Goal:** Expand CxRomos, LLC company-profile positioning across aerospace, satellite data, OSINT, risk and finance, markets, banking applications, IoT, edge devices, and telemetry
 
 **Architecture:** Keep the existing page structure and distribute the expanded positioning through three capability clusters: aerospace intelligence, risk and financial systems, and connected operations. Change only company-profile and metadata copy, leaving historically specific aviation insight articles unchanged
 

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Add a Projects section to the CxRomos site that presents completed products as
+Add a Projects section to the CxRomos, LLC site that presents completed products as
 credible case studies and remains easy to extend. Launch it with one project,
 Risk Watch, and link the case study to <https://riskwatchgroup.com/>.
 
@@ -34,7 +34,7 @@ file and any associated image rather than a new page implementation.
 
 ## Project Index
 
-The index follows the existing CxRomos visual system: a restrained eyebrow,
+The index follows the existing CxRomos, LLC visual system: a restrained eyebrow,
 large white heading, slate supporting copy, rounded dark cards, subtle borders,
 and signal-blue interaction states.
 
@@ -72,7 +72,7 @@ as direct private-market observations.
 ## Assets and Accessibility
 
 Copy the Risk Watch dashboard screenshot from the source project into the
-CxRomos public project-assets directory. Supply descriptive alt text and keep
+CxRomos, LLC public project-assets directory. Supply descriptive alt text and keep
 all links keyboard accessible. External links open in a new tab and include
 safe `rel` attributes.
 
