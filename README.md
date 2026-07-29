@@ -6,7 +6,7 @@ This project is not a raw clone of AstroWind. It is an AstroWind-style implement
 
 ## Positioning
 
-> CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows.
+> CxRomos builds AI-native operational software for aerospace and satellite intelligence, OSINT, risk and financial systems, markets, banking applications, IoT, edge devices, telemetry, and high-consequence decision workflows.
 
 ## Stack
 
@@ -127,7 +127,7 @@ alt text. Write the longer case study in the Markdown body.
 
 ## Suggested next improvements
 
-- Add real screenshots or diagrams from your aviation/routing work
+- Add real screenshots or diagrams from aerospace, satellite, risk, financial, IoT, or telemetry work
 - Add one serious technical case study under `/work`
 - Replace generic proof points with concrete metrics when available
 - Add links to GitHub, LinkedIn, and danijel.co once you decide how public each should be
