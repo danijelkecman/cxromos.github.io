@@ -131,7 +131,7 @@ Expected: no output
 Run:
 
 ```bash
-rg -n --glob '!node_modules/**' --glob '!dist/**' --glob '!.git/**' --glob '!package-lock.json' '—' . || true
+rg -n --glob '!node_modules/**' --glob '!dist/**' --glob '!.git/**' --glob '!package-lock.json' $'\u2014' . || true
 rg -n --glob '!node_modules/**' --glob '!dist/**' --glob '!.git/**' --glob '!package-lock.json' '^\\s*[-*+] .*?[.;][ \\t]*$' . || true
 ```
 
