@@ -1,12 +1,12 @@
 # CxRomos AstroWind-style site
 
-A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos positioning site
+A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos positioning site.
 
-This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos content, structure, design direction, and GitHub Pages deployment already wired in
+This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos content, structure, design direction, and GitHub Pages deployment already wired in.
 
 ## Positioning
 
-> CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows
+> CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows.
 
 ## Stack
 
@@ -32,7 +32,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Astro
+Open the local URL printed by Astro.
 
 ## Build
 
@@ -43,18 +43,18 @@ npm run preview
 
 ## Deploy to GitHub Pages
 
-1. Push this project to your `cxromos.com` GitHub repository
-2. In GitHub, go to **Settings → Pages**
-3. Set **Source** to **GitHub Actions**
-4. Make sure your DNS points `cxromos.com` to GitHub Pages
-5. Push to `master` or `main`
+1. Push this project to your `cxromos.com` GitHub repository.
+2. In GitHub, go to **Settings → Pages**.
+3. Set **Source** to **GitHub Actions**.
+4. Make sure your DNS points `cxromos.com` to GitHub Pages.
+5. Push to `master` or `main`.
 
-The included workflow at `.github/workflows/deploy.yml` builds and deploys the site
+The included workflow at `.github/workflows/deploy.yml` builds and deploys the site.
 
 ## Important GitHub Pages note
 
-This repository is named `cxromos.github.io`, but it lives under the `danijelkecman` account
-That makes it a project site repository, not a user site repository
+This repository is named `cxromos.github.io`, but it lives under the `danijelkecman` account.
+That makes it a project site repository, not a user site repository.
 
 - The default Pages URL is `https://danijelkecman.github.io/cxromos.github.io/`
 - `https://danijelkecman.github.io/` will 404 unless there is a separate repository named `danijelkecman.github.io`
@@ -80,7 +80,7 @@ public/CNAME                   Custom domain
 
 ## Content edits
 
-Most copy lives directly inside the `.astro` pages
+Most copy lives directly inside the `.astro` pages.
 
 Blog-style posts live in:
 
@@ -123,7 +123,7 @@ capabilities:
 ```
 
 `heroImage` and `heroAlt` are optional, but image entries must always include
-alt text. Write the longer case study in the Markdown body
+alt text. Write the longer case study in the Markdown body.
 
 ## Suggested next improvements
 

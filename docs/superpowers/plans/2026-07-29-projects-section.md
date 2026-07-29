@@ -1,10 +1,10 @@
 # Projects Section Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add a scalable Projects index and an internal Risk Watch case study, with Projects positioned between Work and Insights in site navigation
+**Goal:** Add a scalable Projects index and an internal Risk Watch case study, with Projects positioned between Work and Insights in site navigation.
 
-**Architecture:** Define a validated Astro content collection whose frontmatter drives project cards and page metadata while each Markdown body supplies the long-form case study. A static index reads the collection and a dynamic `[slug]` route renders every project, keeping future additions content-only. A small post-build contract test verifies routes, navigation, accessibility metadata, and the external call to action
+**Architecture:** Define a validated Astro content collection whose frontmatter drives project cards and page metadata while each Markdown body supplies the long-form case study. A static index reads the collection and a dynamic `[slug]` route renders every project, keeping future additions content-only. A small post-build contract test verifies routes, navigation, accessibility metadata, and the external call to action.
 
 **Tech Stack:** Astro 7, Astro Content Collections, TypeScript, Markdown, Tailwind CSS 4, Node.js built-in test runner
 
@@ -65,9 +65,9 @@ const projects = defineCollection({
     ({ heroImage, heroAlt }) => !heroImage || Boolean(heroAlt),
     { message: 'heroAlt is required when heroImage is provided' }
   )
-})
+});
 
-export const collections = { insights, projects }
+export const collections = { insights, projects };
 ```
 
 - [ ] **Step 2: Add the Risk Watch content entry**
@@ -95,7 +95,7 @@ Write the Markdown body with the headings `The problem`, `Two layers of evidence
 limits`. State that early warning uses traded-market and macro proxies; filed
 confirmation uses SEC disclosures, N-PORT, tender outcomes, public BDC data, and
 ICI fund flows; fixed-weight scoring exposes missing evidence as reduced
-coverage; and current-day NAV and redemption queues require internal feeds
+coverage; and current-day NAV and redemption queues require internal feeds.
 
 - [ ] **Step 3: Run Astro content and type validation**
 
@@ -106,7 +106,7 @@ npm run check
 ```
 
 Expected: Astro reports zero errors and recognizes both `insights` and
-`projects`
+`projects`.
 
 - [ ] **Step 4: Commit the content contract**
 
@@ -140,7 +140,7 @@ cp /Users/danijel/Developer/projects/agentic/risk-watch/docker/screen.png public
 file public/images/projects/risk-watch-dashboard.png
 ```
 
-Expected: `file` identifies a valid PNG image. Do not alter the source project
+Expected: `file` identifies a valid PNG image. Do not alter the source project.
 
 - [ ] **Step 2: Add Projects to the shared navigation**
 
@@ -153,21 +153,21 @@ const nav = [
   { href: '/insights', label: 'Insights' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' }
-]
+];
 ```
 
-The existing shared `.map()` calls then update desktop and mobile menus together
+The existing shared `.map()` calls then update desktop and mobile menus together.
 
 - [ ] **Step 3: Create the scalable project index**
 
 Create `src/pages/projects/index.astro`. Load projects and sort newest first:
 
 ```ts
-import { getCollection } from 'astro:content'
-import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const projects = (await getCollection('projects'))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ```
 
 Render the page with:
@@ -176,31 +176,31 @@ Render the page with:
 - Eyebrow `Projects`
 - Heading `Operational systems, built to be used.`
 - Introductory copy explaining that these are working products and focused
-  technical builds
+  technical builds.
 - A responsive `md:grid-cols-2` card grid
 - For each card, optional hero image, capability pills, title, summary, and
-  visible `View project →` text
+  visible `View project →` text.
 - A single card-level anchor to `/projects/${project.id}` with signal-blue hover
-  border/focus styling
+  border/focus styling.
 
 - [ ] **Step 4: Create the generic project detail route**
 
 Create `src/pages/projects/[slug].astro` using:
 
 ```ts
-import { getCollection, render } from 'astro:content'
-import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects')
+  const projects = await getCollection('projects');
   return projects.map((project) => ({
     params: { slug: project.id },
     props: { project }
-  }))
+  }));
 }
 
-const { project } = Astro.props
-const { Content } = await render(project)
+const { project } = Astro.props;
+const { Content } = await render(project);
 ```
 
 Render:
@@ -210,7 +210,7 @@ Render:
 - Capability pills and a large project title/description hero
 - An external `Visit Risk Watch ↗` link driven by
   `project.data.externalUrl`, with `target="_blank"` and
-  `rel="noopener noreferrer"`
+  `rel="noopener noreferrer"`.
 - The optional hero image in a bordered, rounded container
 - The Markdown `Content` in the established `prose prose-invert` treatment
 
@@ -247,7 +247,7 @@ git commit -m "Add project index and Risk Watch case study"
 **Interfaces:**
 
 - Consumes: generated files `dist/projects/index.html` and
-  `dist/projects/risk-watch/index.html`
+  `dist/projects/risk-watch/index.html`.
 - Produces: npm script `check:projects`
 
 - [ ] **Step 1: Write the failing generated-page contract test**
@@ -255,21 +255,21 @@ git commit -m "Add project index and Risk Watch case study"
 Create `scripts/check-project-pages.mjs`:
 
 ```js
-import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 
-const index = await readFile('dist/projects/index.html', 'utf8')
-const detail = await readFile('dist/projects/risk-watch/index.html', 'utf8')
+const index = await readFile('dist/projects/index.html', 'utf8');
+const detail = await readFile('dist/projects/risk-watch/index.html', 'utf8');
 
-assert.match(index, /href="\/work"[^>]*>Work<\/a>[\s\S]*href="\/projects"[^>]*>Projects<\/a>[\s\S]*href="\/insights"[^>]*>Insights<\/a>/)
-assert.match(index, /href="\/projects\/risk-watch"/)
-assert.match(index, /Risk Watch/)
-assert.match(detail, /href="https:\/\/riskwatchgroup\.com\/"/)
-assert.match(detail, /target="_blank"/)
-assert.match(detail, /rel="noopener noreferrer"/)
-assert.match(detail, /alt="Risk Watch dashboard showing early-warning and confirmation signals for private-credit stress"/)
+assert.match(index, /href="\/work"[^>]*>Work<\/a>[\s\S]*href="\/projects"[^>]*>Projects<\/a>[\s\S]*href="\/insights"[^>]*>Insights<\/a>/);
+assert.match(index, /href="\/projects\/risk-watch"/);
+assert.match(index, /Risk Watch/);
+assert.match(detail, /href="https:\/\/riskwatchgroup\.com\/"/);
+assert.match(detail, /target="_blank"/);
+assert.match(detail, /rel="noopener noreferrer"/);
+assert.match(detail, /alt="Risk Watch dashboard showing early-warning and confirmation signals for private-credit stress"/);
 
-console.log('Project page contracts passed.')
+console.log('Project page contracts passed.');
 ```
 
 Add to `package.json`:
@@ -288,7 +288,7 @@ npm run check:projects
 
 Expected: the test fails if navigation order, routes, external-link safety, or
 image accessibility differs from the contract. Adjust only the relevant page
-markup from Task 2 until the contract is satisfied
+markup from Task 2 until the contract is satisfied.
 
 - [ ] **Step 3: Run the contract test to verify it passes**
 
@@ -301,7 +301,7 @@ npm run check:projects
 Expected:
 
 ```text
-Project page contracts passed
+Project page contracts passed.
 ```
 
 - [ ] **Step 4: Update project documentation**
@@ -311,9 +311,9 @@ In `README.md`:
 - Add the content-driven Projects section to the stack description
 - Add `src/pages/projects/` and `src/content/projects/` to Important files
 - Explain that one Markdown file creates an index card and detail route and list
-  the required frontmatter fields
+  the required frontmatter fields.
 - Remove the stale statement that Insights is unpublished, because
-  `src/pages/insights/` already exists
+  `src/pages/insights/` already exists.
 
 - [ ] **Step 5: Run all final verification**
 
@@ -328,7 +328,7 @@ git status --short
 
 Expected: checks and build pass, the project contract prints its success
 message, `git diff --check` is silent, and status lists only the intended Task 3
-changes
+changes.
 
 - [ ] **Step 6: Commit tests and documentation**
 

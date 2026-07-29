@@ -4,16 +4,16 @@
 
 Add a Projects section to the CxRomos site that presents completed products as
 credible case studies and remains easy to extend. Launch it with one project,
-Risk Watch, and link the case study to <https://riskwatchgroup.com/>
+Risk Watch, and link the case study to <https://riskwatchgroup.com/>.
 
 ## Information Architecture
 
 - Add `Projects` between `Work` and `Insights` in the desktop and mobile
-  navigation
+  navigation.
 - Add `/projects` as the project index
 - Add `/projects/risk-watch` as the first project detail page
 - Keep the external Risk Watch URL as a prominent call to action on the detail
-  page rather than sending visitors away from the project index
+  page rather than sending visitors away from the project index.
 
 ## Content Model
 
@@ -30,13 +30,13 @@ provides validated listing and metadata fields:
 
 The Markdown body contains the longer case-study narrative. Astro generates the
 detail routes from collection entries, so adding a project requires a content
-file and any associated image rather than a new page implementation
+file and any associated image rather than a new page implementation.
 
 ## Project Index
 
 The index follows the existing CxRomos visual system: a restrained eyebrow,
 large white heading, slate supporting copy, rounded dark cards, subtle borders,
-and signal-blue interaction states
+and signal-blue interaction states.
 
 Each project card includes:
 
@@ -47,7 +47,7 @@ Each project card includes:
 - an internal link to the project detail page
 
 The layout uses a responsive grid that works with one project now and expands
-to multiple cards without redesign
+to multiple cards without redesign.
 
 ## Risk Watch Case Study
 
@@ -67,20 +67,20 @@ image, and a prominent `Visit Risk Watch` external link. The body explains:
   internal administrator feeds for current-day NAV and redemption queues
 
 The copy must describe the system accurately without presenting public proxies
-as direct private-market observations
+as direct private-market observations.
 
 ## Assets and Accessibility
 
 Copy the Risk Watch dashboard screenshot from the source project into the
 CxRomos public project-assets directory. Supply descriptive alt text and keep
 all links keyboard accessible. External links open in a new tab and include
-safe `rel` attributes
+safe `rel` attributes.
 
 ## Error Handling
 
 Astro content schema validation fails the build when required project metadata
 is absent or malformed. The dynamic route returns no generated page for unknown
-slugs, allowing the existing 404 page to handle them
+slugs, allowing the existing 404 page to handle them.
 
 ## Verification
 
@@ -88,10 +88,10 @@ slugs, allowing the existing 404 page to handle them
 - Confirm `/projects` and `/projects/risk-watch` are emitted
 - Confirm the navigation order is Work, Projects, Insights, About, Contact
 - Check that the Risk Watch external link, image alt text, and responsive card
-  structure are present in the generated markup
+  structure are present in the generated markup.
 
 ## Scope
 
 This change adds the reusable Projects system and the Risk Watch case study. It
 does not add filters, project categories, a CMS, client metrics, or additional
-projects
+projects.
