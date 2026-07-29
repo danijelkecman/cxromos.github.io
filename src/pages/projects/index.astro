@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout
+  title="Projects — CxRomos"
+  description="Working products and focused technical builds from CxRomos."
+>
+  <section class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+    <p class="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-signal">Projects</p>
+    <h1 class="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-6xl">
+      Operational systems, built to be used.
+    </h1>
+    <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+      Working products and focused technical builds where data, decision logic,
+      and operational reality have to meet.
+    </p>
+
+    <div class="mt-14 grid gap-7 md:grid-cols-2">
+      {projects.map((project) => (
+        <a
+          href={`/projects/${project.id}`}
+          class="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-soft transition duration-300 hover:-translate-y-1 hover:border-signal/50 hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+        >
+          {project.data.heroImage && (
+            <div class="aspect-[16/9] overflow-hidden border-b border-white/10 bg-panel">
+              <img
+                src={project.data.heroImage}
+                alt={project.data.heroAlt}
+                class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.02]"
+                loading="eager"
+              />
+            </div>
+          )}
+          <div class="p-7 md:p-8">
+            <div class="flex flex-wrap gap-2">
+              {project.data.capabilities.map((capability) => (
+                <span class="rounded-full border border-signal/20 bg-signal/10 px-3 py-1 text-xs font-medium text-sky-200">
+                  {capability}
+                </span>
+              ))}
+            </div>
+            <h2 class="mt-6 text-3xl font-semibold tracking-tight text-white">{project.data.title}</h2>
+            <p class="mt-4 leading-7 text-slate-300">{project.data.summary}</p>
+            <span class="mt-7 inline-flex items-center text-sm font-semibold text-signal transition group-hover:text-sky-300">
+              View project&nbsp;→
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

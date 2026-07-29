@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<BaseLayout title={`${project.data.title} — CxRomos`} description={project.data.description}>
+  <article class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+    <a href="/projects" class="text-sm font-medium text-signal transition hover:text-sky-300">
+      ← Projects
+    </a>
+
+    <div class="mt-10 grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
+      <div>
+        <div class="flex flex-wrap gap-2">
+          {project.data.capabilities.map((capability) => (
+            <span class="rounded-full border border-signal/20 bg-signal/10 px-3 py-1 text-xs font-medium text-sky-200">
+              {capability}
+            </span>
+          ))}
+        </div>
+        <h1 class="mt-6 max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-6xl">
+          {project.data.title}
+        </h1>
+        <p class="mt-6 max-w-3xl text-xl leading-8 text-slate-300">{project.data.description}</p>
+      </div>
+      <a
+        href={project.data.externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex w-fit items-center justify-center rounded-full bg-signal px-6 py-3 text-sm font-semibold text-ink transition hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+      >
+        Visit {project.data.title}&nbsp;↗
+      </a>
+    </div>
+
+    {project.data.heroImage && (
+      <div class="mt-14 max-h-[44rem] overflow-hidden rounded-3xl border border-white/10 bg-panel shadow-soft">
+        <img
+          src={project.data.heroImage}
+          alt={project.data.heroAlt}
+          class="h-full w-full object-cover object-top"
+        />
+      </div>
+    )}
+
+    <div class="prose prose-invert prose-slate mt-16 max-w-3xl prose-headings:text-white prose-a:text-signal prose-strong:text-white">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
