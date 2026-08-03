@@ -34,11 +34,11 @@ The older enterprise stacks taught this lesson very clearly. SOAP, WS-* standard
 
 Good integration design asks practical questions early:
 
-- which system owns the truth for this concept;
-- what is the identity model;
-- what invariants must survive mapping;
-- what happens when a downstream system is delayed;
-- whether the flow can be replayed without corrupting state.
+- which system owns the truth for this concept
+- what is the identity model
+- what invariants must survive mapping
+- what happens when a downstream system is delayed
+- whether the flow can be replayed without corrupting state
 
 The performance side is equally unforgiving. End-to-end throughput is constrained by the slowest meaningful step, not the prettiest component diagram.
 

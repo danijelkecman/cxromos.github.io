@@ -6,7 +6,7 @@ import PageHeader from '../../components/PageHeader.astro';
 const posts = (await getCollection('insights')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const isoDate = (date: Date) => date.toISOString().slice(0, 10);
 ---
-<BaseLayout title="Insights — CxRomos" description="Technical notes from CxRomos on AI-native operational intelligence, aviation software, graph routing, and real-time systems.">
+<BaseLayout title="Insights - CxRomos, LLC" description="Technical notes from CxRomos, LLC on aerospace and satellite intelligence, risk and financial systems, markets, IoT, telemetry, graph routing, and real-time operations.">
   <PageHeader eyebrow={`Insights · ${posts.length} notes`} title="Technical notes for operational intelligence." />
 
   <div class="mx-auto max-w-7xl px-6 py-16 md:py-20 lg:px-8">

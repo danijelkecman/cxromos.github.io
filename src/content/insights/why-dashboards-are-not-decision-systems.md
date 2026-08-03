@@ -18,11 +18,11 @@ This is not a universal law. It is a useful design instinct. The actionability o
 
 That observation changes architecture. In a true decision system, you need:
 
-- event time, not just arrival time;
-- replayability, so you can reason about failures;
-- deterministic state reduction;
-- conflict handling across sources;
-- clear ownership of the next action.
+- event time, not just arrival time
+- replayability, so you can reason about failures
+- deterministic state reduction
+- conflict handling across sources
+- clear ownership of the next action
 
 The systems I trust most usually have a form that looks like this:
 

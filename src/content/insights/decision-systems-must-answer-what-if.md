@@ -14,7 +14,7 @@ $$
 s_{t+1} = f(s_t, a, w)
 $$
 
-A decision system needs some version of `f`: given current state, a candidate action `a`, and exogenous factors `w` — weather, demand, failures, the actions of others — what state follows. The model does not need to be perfect. It needs to be explicit, so its assumptions can be inspected, and cheap enough to evaluate several actions while the decision is still open.
+A decision system needs some version of `f`: given current state, a candidate action `a`, and exogenous factors `w` - weather, demand, failures, the actions of others - what state follows. The model does not need to be perfect. It needs to be explicit, so its assumptions can be inspected, and cheap enough to evaluate several actions while the decision is still open.
 
 Ranking the options is half the answer. The other half is how fragile the ranking is.
 
@@ -28,10 +28,10 @@ If the preferred option beats the runner-up by a margin that a 10-knot wind shif
 
 Building what-if into an operational product imposes requirements that pure reporting never does:
 
-- state must be reconstructible, because you cannot simulate forward from a state you cannot pin down; this is one more reason event history and deterministic reduction matter;
-- every scenario carries its assumptions as data, so two people looking at the same comparison see why the numbers differ;
-- evaluation has a latency budget — a what-if that takes ten minutes is a report, and the decision will be made without it; interactive means seconds;
-- the differences between scenarios are shown in operational terms (fuel, delay minutes, exposure) rather than as internal scores.
+- state must be reconstructible, because you cannot simulate forward from a state you cannot pin down; this is one more reason event history and deterministic reduction matter
+- every scenario carries its assumptions as data, so two people looking at the same comparison see why the numbers differ
+- evaluation has a latency budget - a what-if that takes ten minutes is a report, and the decision will be made without it; interactive means seconds
+- the differences between scenarios are shown in operational terms (fuel, delay minutes, exposure) rather than as internal scores
 
 The division of labor stays the same as in the rest of my work. Deterministic engines evaluate the futures: graph, geometry, rules, physics. AI helps choose which futures are worth evaluating and explains, in the operator's language, why one beats another.
 

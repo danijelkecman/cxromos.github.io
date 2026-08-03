@@ -12,6 +12,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "check:projects": "npm run build && node scripts/check-project-pages.mjs",
     "preview": "astro preview",
     "check": "astro check"
   },

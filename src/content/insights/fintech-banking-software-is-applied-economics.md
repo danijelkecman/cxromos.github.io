@@ -10,10 +10,10 @@ Risk systems, wallets, retail banking, corporate banking, NFC payments, and mult
 
 That is why simplistic descriptions of fintech software bother me. The core questions are economic and behavioral as much as technical:
 
-- how fast should value move;
-- how much risk is accepted while it moves;
-- who carries the risk during each state transition;
-- what information must be visible to preserve trust.
+- how fast should value move
+- how much risk is accepted while it moves
+- who carries the risk during each state transition
+- what information must be visible to preserve trust
 
 <p class="math-label">Expected Financial Loss</p>
 

@@ -42,10 +42,10 @@ I care a lot about unit discipline in this domain. Aviation routinely mixes naut
 
 The most interesting operational question is usually not "what is the route?" It is "why did this route win, and how fragile is that answer?" Good route intelligence should expose the sensitivity of the result:
 
-- which edge contributes most to risk;
-- where the fuel penalty is concentrated;
-- which segment is most vulnerable to weather shifts;
-- what fallback path survives if one assumption fails.
+- which edge contributes most to risk
+- where the fuel penalty is concentrated
+- which segment is most vulnerable to weather shifts
+- what fallback path survives if one assumption fails
 
 That requirement is why graph-based systems remain so powerful. They let us attach semantics to edges and nodes instead of treating them as dead geometry. An edge can carry validity periods, preferred directionality, altitude windows, weather overlap, and incremental fuel effects. Once you do that, the product can explain its decisions in a way that humans can audit.
 

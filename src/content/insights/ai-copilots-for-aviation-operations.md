@@ -10,9 +10,9 @@ I do not think this is a domain where software is allowed to sound smart while h
 
 That is why I am careful with the word "copilot." A polished chat UI is the least interesting part of the problem. The hard part is building a system that can answer three questions every time:
 
-- what changed;
-- why it matters;
-- what evidence and rules support the recommendation.
+- what changed
+- why it matters
+- what evidence and rules support the recommendation
 
 The useful architecture starts with operations. I want deterministic routing, deterministic document linking, deterministic constraint checks, and explicit data lineage. Then I want AI to compress context for the operator.
 
@@ -45,11 +45,11 @@ I am skeptical of unbounded LLMs in this setting for the same reason I am skepti
 
 The decomposition I trust is simple:
 
-- graph and geospatial engines for route legality and cost;
-- rules engines for operational constraints;
-- realtime event infrastructure for freshness and sequencing;
-- retrieval over documents and manuals for evidence;
-- LLMs for summarization, translation, and operator-facing explanation.
+- graph and geospatial engines for route legality and cost
+- rules engines for operational constraints
+- realtime event infrastructure for freshness and sequencing
+- retrieval over documents and manuals for evidence
+- LLMs for summarization, translation, and operator-facing explanation
 
 That architecture is less glamorous than the startup pitch version of AI, but I trust it far more. In commercial aviation, the right product is not the one that appears intelligent. It is the one that remains inspectable when the situation becomes ambiguous, delayed, weather-affected, or costly.
 

@@ -1,20 +1,21 @@
-# CxRomos AstroWind-style site
+# CxRomos, LLC AstroWind-style site
 
-A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos positioning site.
+A GitHub Pages-ready Astro + Tailwind project for the refreshed CxRomos, LLC positioning site.
 
-This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos content, structure, design direction, and GitHub Pages deployment already wired in.
+This project is not a raw clone of AstroWind. It is an AstroWind-style implementation with the CxRomos, LLC content, structure, design direction, and GitHub Pages deployment already wired in.
 
 ## Positioning
 
-> CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows.
+> CxRomos, LLC builds AI-native operational software for aerospace and satellite intelligence, OSINT, risk and financial systems, markets, banking applications, IoT, edge devices, telemetry, and high-consequence decision workflows.
 
 ## Stack
 
 - Astro
 - Tailwind CSS 4 (via `@tailwindcss/vite`; theme tokens live in `src/styles/global.css`)
 - Markdown content for insights (KaTeX math via remark-math/rehype-katex)
+- Content-driven project index and case studies through Astro Content Collections
 - Live homepage signal chart: `scripts/fetch-signal.mjs` pulls one free real-world
-  data source per day into `src/data/operational-signal.json` — ships (aisstream
+  data source per day into `src/data/operational-signal.json` - ships (aisstream
   AIS), asteroids (NASA NeoWs), equities (Polygon), severe storms and floods and
   wildfires (NASA EONET), supply chain (Cass index via FRED), flights (OpenSky),
   solar flares (NASA DONKI), EUR/USD (ECB), earthquakes (USGS). A daily cron in
@@ -65,20 +66,17 @@ That makes it a project site repository, not a user site repository.
 src/pages/index.astro          Homepage
 src/pages/about.astro          Founder/company narrative
 src/pages/work.astro           Focus areas
+src/pages/projects/            Project index and generated case-study routes
 src/pages/contact.astro        Contact page
 src/pages/404.astro            Not-found page
-src/drafts/insights/           Insights listing and article template (unpublished)
 src/content/insights/          Markdown articles
+src/content/projects/          Project metadata and case-study content
 src/components/                Reusable UI sections
 src/layouts/BaseLayout.astro   SEO/base HTML layout
 src/styles/global.css          Tailwind theme tokens and global styles
 public/CNAME                   Custom domain
 .github/workflows/deploy.yml   GitHub Pages deployment
 ```
-
-The insights section is currently unpublished. To publish it, move
-`src/drafts/insights/` to `src/pages/insights/` and Astro will pick up the
-routes on the next build.
 
 ## Content edits
 
@@ -100,9 +98,36 @@ date: "2026-05-01"
 ---
 ```
 
+Projects live in:
+
+```text
+src/content/projects/
+```
+
+Each Markdown file creates a card on `/projects` and a detail route at
+`/projects/<filename>`. Project frontmatter requires:
+
+```yaml
+---
+title: "Project name"
+description: "Detail-page introduction and metadata description."
+summary: "Short project-index description."
+date: "2026-07-29"
+externalUrl: "https://example.com/"
+heroImage: "/images/projects/example.png"
+heroAlt: "Accessible description of the project image"
+capabilities:
+  - "Capability one"
+  - "Capability two"
+---
+```
+
+`heroImage` and `heroAlt` are optional, but image entries must always include
+alt text. Write the longer case study in the Markdown body.
+
 ## Suggested next improvements
 
-- Add real screenshots or diagrams from your aviation/routing work.
-- Add one serious technical case study under `/work`.
-- Replace generic proof points with concrete metrics when available.
-- Add links to GitHub, LinkedIn, and danijel.co once you decide how public each should be.
+- Add real screenshots or diagrams from aerospace, satellite, risk, financial, IoT, or telemetry work
+- Add one serious technical case study under `/work`
+- Replace generic proof points with concrete metrics when available
+- Add links to GitHub, LinkedIn, and danijel.co once you decide how public each should be

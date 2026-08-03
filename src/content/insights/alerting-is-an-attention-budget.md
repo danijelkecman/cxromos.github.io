@@ -22,10 +22,10 @@ The fix is not better thresholds alone. It is treating severity as a contract. A
 
 The design rules I hold alerting to:
 
-- an alert names the next action and the owner of that action; if no action exists, it is a log line, not an alert;
-- one cause produces one alert, however many symptoms it generates; deduplication is part of detection, not a cosmetic layer;
-- escalation follows persistence, not repetition — a condition that survives its expected recovery window deserves more attention, a condition that merely fires often does not;
-- each rule's precision is measured in production, and rules that stay below the bar get rewritten or deleted.
+- an alert names the next action and the owner of that action; if no action exists, it is a log line, not an alert
+- one cause produces one alert, however many symptoms it generates; deduplication is part of detection, not a cosmetic layer
+- escalation follows persistence, not repetition - a condition that survives its expected recovery window deserves more attention, a condition that merely fires often does not
+- each rule's precision is measured in production, and rules that stay below the bar get rewritten or deleted
 
 Deleting an alert feels dangerous, so teams rarely do it. But an ignored alert protects nothing. It only moves the risk from the system, where it can be engineered, into the operator's attention, where it cannot.
 

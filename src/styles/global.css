@@ -121,7 +121,7 @@ body {
     padding: 0.75rem 1.25rem;
   }
 
-  /* Corner registration ticks — the detail that reads as "instrument" rather
+  /* Corner registration ticks - the detail that reads as "instrument" rather
      than "card". Drawn on pseudo-elements so they cost no extra markup. */
   .ticks {
     position: relative;
@@ -154,7 +154,7 @@ body {
      as a backdrop rather than a texture.
 
      The grid lives on a pseudo-element because `mask-image` masks an element's
-     content as well as its background — applied to the section itself it would
+     content as well as its background - applied to the section itself it would
      fade the hero copy along with the lines. */
   .grid-bg {
     position: relative;
