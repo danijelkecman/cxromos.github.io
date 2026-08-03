@@ -4,115 +4,210 @@ import Button from '../components/Button.astro';
 import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
 import signal from '../data/operational-signal.json';
-import { scaleSeries, smoothPath, waypointIndices, peakIndices, yAxisTicks } from '../lib/chart';
+import { scaleSeries, smoothPath, waypointIndices, peakIndices, yAxisTicks, seriesDecimals } from '../lib/chart';
 
 const values = signal.points.map((p) => p.v);
 const pts = scaleSeries(values, 60, 477, 55, 205);
 const pathD = smoothPath(pts);
+const areaD = `${pathD} L${pts[pts.length - 1].x} 205 L${pts[0].x} 205 Z`;
 const waypoints = waypointIndices(pts.length, 5);
 const peaks = peakIndices(values, 3, waypoints);
 const yTicks = yAxisTicks(values); // [min, mid, max] rendered bottom to top
 const yTickYs = [205, 130, 55];
 const xTicks = waypointIndices(pts.length, 5);
+
+// Primary readout: latest value and its move across the window.
+const decimals = seriesDecimals(values);
+const latest = values[values.length - 1];
+const first = values[0];
+const changePct = first === 0 ? 0 : ((latest - first) / first) * 100;
+const changeLabel = `${changePct >= 0 ? '+' : '−'}${Math.abs(changePct).toFixed(1)}%`;
+
+const readouts = [
+  { key: 'Graph', label: 'routing logic' },
+  { key: 'AI', label: 'decision support' },
+  { key: 'Ops', label: 'real-time systems' }
+];
+
+const stack = [
+  'Swift / Objective-C / iOS',
+  'Android',
+  'Fullstack',
+  'Cloud systems',
+  'System design',
+  'Real-time systems',
+  'AI / LLM workflows',
+  'Enterprise integration'
+];
 ---
 <BaseLayout>
   <section class="grid-bg relative overflow-hidden">
-    <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-32">
+    <div class="mx-auto grid max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-28">
       <div>
-        <p class="mb-5 inline-flex rounded-full border border-signal/30 bg-signal/10 px-4 py-2 text-sm font-medium text-signal">
+        <p class="mono flex items-center gap-3 text-signal">
+          <span class="h-px w-8 bg-signal/50"></span>
           AI-native operational intelligence
         </p>
-        <h1 class="text-balance text-5xl font-semibold tracking-tight text-white md:text-7xl">
-          Software for real-time decisions where mistakes are expensive.
+        <h1 class="mt-7 text-balance text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.02em] text-bright md:text-[4.25rem]">
+          Software for <span class="whitespace-nowrap">real-time</span> decisions where mistakes are expensive.
         </h1>
-        <p class="mt-7 max-w-2xl text-xl leading-8 text-slate-300">
+        <p class="mt-8 max-w-xl text-lg leading-8 text-muted">
           CxRomos builds AI-native operational software for aviation, routing, geospatial systems, and high-consequence decision workflows.
         </p>
-        <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
           <Button href="/contact">Discuss a project</Button>
           <Button href="/work" variant="secondary">View focus areas</Button>
         </div>
       </div>
-      <div class="relative rounded-[2rem] border border-white/10 bg-panel/80 p-6 shadow-soft">
-        <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-signal/20 blur-3xl"></div>
-        <div class="space-y-4">
-          <div class="rounded-2xl border border-line bg-ink/70 p-5">
-            <div class="flex items-center justify-between gap-4 text-sm text-slate-400">
-              <span>{signal.label}</span>
-              <span class="whitespace-nowrap text-signal">live · {signal.updated}</span>
+
+      <div class="panel ticks">
+        <div class="panel-head">
+          <span class="mono text-muted">{signal.label}</span>
+          <span class="mono flex shrink-0 items-center gap-2 text-signal">
+            <span class="live-dot"></span>
+            live
+          </span>
+        </div>
+
+        <div class="flex items-start justify-between gap-6 px-5 pt-5">
+          <div>
+            <div class="font-mono text-3xl leading-none tracking-tight text-bright">
+              {latest.toFixed(decimals)}
             </div>
-            <svg viewBox="0 0 520 260" class="mt-4 h-auto w-full" role="img" aria-label={`${signal.label} — ${signal.unit}. Data from ${signal.source}.`}>
-              <defs>
-                <linearGradient id="route" x1="0" x2="1" y1="0" y2="0">
-                  <stop stop-color="#38bdf8" />
-                  <stop offset="1" stop-color="#f97316" />
-                </linearGradient>
-              </defs>
-              <g stroke="#1f3148" stroke-width="1">
-                {yTickYs.map((y) => <path d={`M60 ${y}H477`} />)}
-                {xTicks.map((i) => <path d={`M${pts[i].x} 55V212`} />)}
-              </g>
-              <g fill="#64748b" font-size="11" text-anchor="end">
-                {yTicks.map((label, i) => <text x="52" y={yTickYs[i] + 4}>{label}</text>)}
-              </g>
-              <g fill="#64748b" font-size="11" text-anchor="middle">
-                {xTicks.map((i) => <text x={pts[i].x} y="232">{signal.points[i].t}</text>)}
-              </g>
-              <path d={pathD} fill="none" stroke="url(#route)" stroke-width="5" stroke-linecap="round" />
-              <g fill="#f97316">
-                {peaks.map((i) => <circle cx={pts[i].x} cy={pts[i].y} r="6" />)}
-              </g>
-              <g fill="#38bdf8">
-                {waypoints.map((i, n) => (
-                  <circle cx={pts[i].x} cy={pts[i].y} r={n === 0 || n === waypoints.length - 1 ? 9 : 7} />
-                ))}
-              </g>
-            </svg>
-            <p class="mt-2 text-xs text-slate-500">{signal.unit} · {signal.source}</p>
+            <div class="mono mt-2.5 text-faint">{signal.unit}</div>
           </div>
-          <div class="grid gap-4 sm:grid-cols-3">
-            <div class="rounded-2xl border border-line bg-ink/70 p-4"><div class="text-2xl font-semibold text-white">Graph</div><p class="mt-1 text-sm text-slate-400">routing logic</p></div>
-            <div class="rounded-2xl border border-line bg-ink/70 p-4"><div class="text-2xl font-semibold text-white">AI</div><p class="mt-1 text-sm text-slate-400">decision support</p></div>
-            <div class="rounded-2xl border border-line bg-ink/70 p-4"><div class="text-2xl font-semibold text-white">Ops</div><p class="mt-1 text-sm text-slate-400">real-time systems</p></div>
+          <div class="text-right">
+            <div class:list={['font-mono text-lg leading-none', changePct >= 0 ? 'text-signal' : 'text-heat']}>
+              {changeLabel}
+            </div>
+            <div class="mono mt-2.5 text-faint">{signal.updated}</div>
           </div>
+        </div>
+
+        <svg
+          viewBox="0 0 520 250"
+          class="h-auto w-full px-1"
+          role="img"
+          aria-label={`${signal.label} — ${signal.unit}. Latest ${latest.toFixed(decimals)}, ${changeLabel} across the window. Data from ${signal.source}.`}
+        >
+          <defs>
+            <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
+              <stop stop-color="#4cc2f5" stop-opacity="0.28" />
+              <stop offset="1" stop-color="#4cc2f5" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <g stroke="#1b2942" stroke-width="1">
+            {yTickYs.map((y) => <path d={`M60 ${y}H477`} />)}
+            {xTicks.map((i) => <path d={`M${pts[i].x} 55V210`} />)}
+          </g>
+          <g font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.08em" fill="#6a7c96">
+            <g text-anchor="end">
+              {yTicks.map((label, i) => <text x="50" y={yTickYs[i] + 3.5}>{label}</text>)}
+            </g>
+            <g text-anchor="middle">
+              {xTicks.map((i) => <text x={pts[i].x} y="228">{signal.points[i].t}</text>)}
+            </g>
+          </g>
+          <path d={areaD} fill="url(#area)" />
+          <path d={pathD} fill="none" stroke="#4cc2f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <g fill="#f97316">
+            {peaks.map((i) => <circle cx={pts[i].x} cy={pts[i].y} r="3" />)}
+          </g>
+          <g fill="#060a12" stroke="#4cc2f5" stroke-width="1.5">
+            {waypoints.map((i, n) => (
+              <circle cx={pts[i].x} cy={pts[i].y} r={n === 0 || n === waypoints.length - 1 ? 4 : 3} />
+            ))}
+          </g>
+        </svg>
+
+        <div class="mono flex items-center justify-between gap-4 border-t border-line px-5 py-3.5 text-faint">
+          <span>source</span>
+          <span class="text-muted">{signal.source}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 pb-20 lg:px-8">
+      <div class="panel overflow-hidden">
+        <div class="grid gap-px bg-line sm:grid-cols-3">
+          {readouts.map((item) => (
+            <div class="flex items-baseline gap-4 bg-panel px-6 py-5">
+              <span class="text-xl font-semibold text-bright">{item.key}</span>
+              <span class="mono text-faint">{item.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <Section eyebrow="The problem" title="Operational teams are drowning in fragmented data." description="Routes, constraints, alerts, weather, documents, system events, and human judgment are often split across tools that were never designed to reason together. The usual answer is another tool. But automating a fragmented process only delivers the chaos faster.">
-    <div class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-2xl font-medium leading-10 text-white shadow-soft">
+  <Section
+    index="01"
+    eyebrow="The problem"
+    title="Operational teams are drowning in fragmented data."
+    description="Routes, constraints, alerts, weather, documents, system events, and human judgment are often split across tools that were never designed to reason together. The usual answer is another tool. But automating a fragmented process only delivers the chaos faster."
+  >
+    <blockquote class="panel ticks border-l-2 border-l-signal p-8 text-xl font-medium leading-9 text-bright md:text-2xl md:leading-10">
       The next generation of software will not be dashboards. It will be decision infrastructure — systems that think with operators, not just report to them.
+    </blockquote>
+  </Section>
+
+  <Section
+    index="02"
+    eyebrow="How we think"
+    title="Automation starts in the thinking, not the tooling."
+    description="Tools amplify whatever logic sits behind them. Before we write software, we map how the operation actually decides: what repeats, what connects, what matters under pressure."
+  >
+    <div class="grid gap-5 sm:grid-cols-2">
+      <Card index="01" title="Clarity before code">
+        We model the decision logic first — inputs, constraints, ownership of the next action. Once the system is understood, the software almost designs itself.
+      </Card>
+      <Card index="02" title="Systems, not tasks">
+        Task thinking asks how to do something faster. System thinking asks why it exists and how it fits everything else. We optimise the loop, not the click.
+      </Card>
+      <Card index="03" title="Quiet by design">
+        Every automation must reduce noise, not add layers. Fewer alerts, fewer handoffs, less cognitive load — the clearest proof a system works is the silence around it.
+      </Card>
+      <Card index="04" title="Extend judgment, never replace it">
+        Machines execute; humans design the logic and own the call. We build software that compresses context for the person deciding — with guardrails, not black boxes.
+      </Card>
     </div>
   </Section>
 
-  <Section eyebrow="How we think" title="Automation starts in the thinking, not the tooling." description="Tools amplify whatever logic sits behind them. Before we write software, we map how the operation actually decides: what repeats, what connects, what matters under pressure.">
-    <div class="grid gap-6 sm:grid-cols-2">
-      <Card title="Clarity before code">We model the decision logic first — inputs, constraints, ownership of the next action. Once the system is understood, the software almost designs itself.</Card>
-      <Card title="Systems, not tasks">Task thinking asks how to do something faster. System thinking asks why it exists and how it fits everything else. We optimise the loop, not the click.</Card>
-      <Card title="Quiet by design">Every automation must reduce noise, not add layers. Fewer alerts, fewer handoffs, less cognitive load — the clearest proof a system works is the silence around it.</Card>
-      <Card title="Extend judgment, never replace it">Machines execute; humans design the logic and own the call. We build software that compresses context for the person deciding — with guardrails, not black boxes.</Card>
+  <Section index="03" eyebrow="What we build" title="Systems that convert complexity into trusted operational decisions.">
+    <div class="grid gap-5 md:grid-cols-3">
+      <Card index="01" meta="realtime" title="Real-time operational systems">
+        Routing, monitoring, alerts, mobile workflows, event-driven infrastructure, and internal tools that operators can trust under pressure.
+      </Card>
+      <Card index="02" meta="ai" title="AI-assisted workflows">
+        LLM interfaces over structured data, document intelligence, operator copilots, and decision support with explicit guardrails.
+      </Card>
+      <Card index="03" meta="geo" title="Aviation & geospatial software">
+        Flight routing, waypoint logic, spatial search, map systems, risk overlays, and graph-based operational intelligence.
+      </Card>
     </div>
   </Section>
 
-  <Section eyebrow="What we build" title="Systems that convert complexity into trusted operational decisions.">
-    <div class="grid gap-6 md:grid-cols-3">
-      <Card title="Real-time operational systems">Routing, monitoring, alerts, mobile workflows, event-driven infrastructure, and internal tools that operators can trust under pressure.</Card>
-      <Card title="AI-assisted workflows">LLM interfaces over structured data, document intelligence, operator copilots, and decision support with explicit guardrails.</Card>
-      <Card title="Aviation & geospatial software">Flight routing, waypoint logic, spatial search, map systems, risk overlays, and graph-based operational intelligence.</Card>
+  <Section index="04" eyebrow="Technical proof" title="Built on engineering, not theater.">
+    <div class="panel overflow-hidden">
+      <div class="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {stack.map((item, i) => (
+          <div class="flex items-baseline gap-3.5 bg-panel px-5 py-4">
+            <span class="mono text-faint">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-body">{item}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </Section>
 
-  <Section eyebrow="Technical proof" title="Built on engineering, not theater.">
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {['Swift / Objective-C / iOS', 'Android', 'Fullstack', 'Cloud systems', 'System Design', 'Real-time Systems', 'AI / LLM workflows', 'Enterprise integration'].map((item) => (
-        <div class="rounded-2xl border border-line bg-panel/70 p-5 font-medium text-slate-100">{item}</div>
-      ))}
-    </div>
-  </Section>
-
-  <Section eyebrow="Current focus" title="AI-native software for aviation, operational intelligence, and high-consequence decision systems." description="CxRomos works where software has to be explainable, fast, integrated, and useful to humans making real decisions.">
-    <div class="flex flex-col gap-4 sm:flex-row">
+  <Section
+    index="05"
+    eyebrow="Current focus"
+    title="AI-native software for aviation, operational intelligence, and high-consequence decision systems."
+    description="CxRomos works where software has to be explainable, fast, integrated, and useful to humans making real decisions."
+  >
+    <div class="flex flex-col gap-3 sm:flex-row">
       <Button href="/work">View focus areas</Button>
       <Button href="/about" variant="secondary">About the founder</Button>
     </div>

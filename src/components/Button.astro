@@ -4,10 +4,15 @@ interface Props {
   variant?: 'primary' | 'secondary';
 }
 const { href, variant = 'primary' } = Astro.props;
-const classes = variant === 'primary'
-  ? 'bg-signal text-ink hover:bg-sky-300'
-  : 'border border-line text-slate-200 hover:border-signal/70 hover:text-white';
+const classes =
+  variant === 'primary'
+    ? 'border-signal bg-signal text-canvas hover:border-bright hover:bg-bright'
+    : 'border-line-strong text-body hover:border-signal hover:text-bright';
 ---
-<a href={href} class={`inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${classes}`}>
+<a
+  href={href}
+  class={`mono group inline-flex items-center justify-center gap-2.5 rounded-chip border px-5 py-3.5 font-medium transition-colors ${classes}`}
+>
   <slot />
+  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">&rarr;</span>
 </a>
