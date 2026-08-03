@@ -1,16 +1,33 @@
 ---
 interface Props {
+  /** Two-digit section index rendered in the left gutter, e.g. "01". */
+  index?: string;
   eyebrow?: string;
   title: string;
   description?: string;
 }
-const { eyebrow, title, description } = Astro.props;
+const { index, eyebrow, title, description } = Astro.props;
 ---
-<section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-  {eyebrow && <p class="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-signal">{eyebrow}</p>}
-  <h2 class="max-w-4xl text-3xl font-semibold tracking-tight text-white md:text-5xl text-balance">{title}</h2>
-  {description && <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{description}</p>}
-  <div class="mt-10">
-    <slot />
+<section class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class="border-t border-line py-16 md:py-24">
+    <div class="grid gap-8 lg:grid-cols-[10.5rem_1fr] lg:gap-12">
+      <div class="lg:pt-2">
+        {(index || eyebrow) && (
+          <p class="mono flex items-center gap-3 text-signal">
+            {index && <span class="text-faint">{index}</span>}
+            {eyebrow && <span>{eyebrow}</span>}
+          </p>
+        )}
+      </div>
+      <div>
+        <h2 class="max-w-3xl text-balance text-3xl font-semibold leading-[1.12] tracking-tight text-bright md:text-[2.75rem]">
+          {title}
+        </h2>
+        {description && <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">{description}</p>}
+        <div class="mt-12">
+          <slot />
+        </div>
+      </div>
+    </div>
   </div>
 </section>

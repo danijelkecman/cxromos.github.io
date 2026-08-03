@@ -1,14 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
+import PageHeader from '../components/PageHeader.astro';
 ---
 <BaseLayout title="Work — CxRomos" description="CxRomos focus areas: aviation software, operational intelligence, routing systems, and AI-assisted workflows.">
-  <Section eyebrow="Work" title="Focused capabilities, not a menu of generic services." description="These are the areas where CxRomos should be judged: systems engineering, operational reasoning, geospatial logic, and AI workflows that survive contact with reality. Every engagement starts the same way — mapping the decision logic before choosing the tools.">
-    <div class="grid gap-6 lg:grid-cols-3">
-      <Card title="Real-time mobile operations platform">Architecture for field workflows, live state, notifications, offline-aware mobile systems, and backend event processing.</Card>
-      <Card title="Aviation routing & waypoint intelligence">Graph-based route construction, spatial corridor search, waypoint matching, risk overlays, and map-driven operational UX.</Card>
-      <Card title="AI workflow prototypes">LLM-assisted monitoring, document intelligence, structured reasoning over operational data, and human-in-the-loop review systems.</Card>
+  <PageHeader
+    eyebrow="Work"
+    title="Focused capabilities, not a menu of generic services."
+    description="These are the areas where CxRomos should be judged: systems engineering, operational reasoning, geospatial logic, and AI workflows that survive contact with reality. Every engagement starts the same way — mapping the decision logic before choosing the tools."
+  />
+
+  <div class="mx-auto max-w-7xl px-6 py-16 md:py-20 lg:px-8">
+    <div class="grid gap-5 lg:grid-cols-3">
+      <Card index="01" meta="mobile" title="Real-time mobile operations platform">
+        Architecture for field workflows, live state, notifications, offline-aware mobile systems, and backend event processing.
+      </Card>
+      <Card index="02" meta="geo" title="Aviation routing & waypoint intelligence">
+        Graph-based route construction, spatial corridor search, waypoint matching, risk overlays, and map-driven operational UX.
+      </Card>
+      <Card index="03" meta="ai" title="AI workflow prototypes">
+        LLM-assisted monitoring, document intelligence, structured reasoning over operational data, and human-in-the-loop review systems.
+      </Card>
     </div>
-  </Section>
+  </div>
 </BaseLayout>

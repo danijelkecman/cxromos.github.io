@@ -3,61 +3,249 @@
 
 @plugin "@tailwindcss/typography";
 
+/* ---------------------------------------------------------------------------
+   Design tokens
+
+   The visual language is operational instrumentation: solid surfaces separated
+   by hairlines, a monospace register for anything the machine reports, and a
+   single accent reserved for live/interactive state. No blur, no glow.
+   --------------------------------------------------------------------------- */
+
 @theme {
-  --color-ink: #08111f;
-  --color-panel: #0d1828;
-  --color-line: #1f3148;
-  --color-signal: #38bdf8;
+  /* Surfaces, darkest to lightest. Each step is a real background, not an
+     alpha overlay, so nested panels stay legible at any depth.
+     Named `canvas` rather than `base` so it does not collide with Tailwind's
+     `text-base` font-size utility. */
+  --color-canvas: #060a12;
+  --color-ink: #090f1a;
+  --color-panel: #0d1524;
+  --color-raised: #121c2e;
+
+  /* Hairlines. `line` is the default separator; `line-strong` marks the edge
+     of an interactive or emphasised surface. */
+  --color-line: #1b2942;
+  --color-line-strong: #2a3d5c;
+
+  /* Text ramp. All clear 4.5:1 on --color-canvas except `faint`, which is
+     reserved for non-essential metadata and clears 3:1. */
+  --color-bright: #f2f6fd;
+  --color-body: #c2cfe2;
+  --color-muted: #94a6bf;
+  --color-faint: #74869f;
+
+  /* Accents. Signal = live data and interaction. Heat = anomaly/peak only. */
+  --color-signal: #4cc2f5;
+  --color-signal-dim: #1f4f6d;
   --color-heat: #f97316;
-  --color-paper: #f8fafc;
-  --shadow-soft: 0 18px 60px rgba(2, 8, 23, 0.35);
+
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Instruments have tight corners. */
+  --radius-panel: 3px;
+  --radius-chip: 2px;
 }
 
 :root {
   color-scheme: dark;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 32rem),
-    radial-gradient(circle at 85% 12%, rgba(249, 115, 22, 0.12), transparent 28rem),
-    #08111f;
-  color: #e5eefb;
+  background: var(--color-canvas);
+  color: var(--color-body);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  background: var(--color-signal-dim);
+  color: var(--color-bright);
+}
+
+/* Visible, consistent keyboard focus on every interactive element. */
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: var(--radius-chip);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Component primitives
+
+   These live in the components layer so any Tailwind utility placed alongside
+   them (`text-xs`, `bg-ink`, …) still wins.
+   --------------------------------------------------------------------------- */
+
+@layer components {
+  /* The monospace register: anything the system reports rather than says.
+     Indices, units, timestamps, source attribution, nav, eyebrows. */
+  .mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* A bordered instrument surface. */
+  .panel {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+    background: var(--color-panel);
+  }
+
+  /* Header strip inside a panel, separated by a hairline. */
+  .panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Corner registration ticks — the detail that reads as "instrument" rather
+     than "card". Drawn on pseudo-elements so they cost no extra markup. */
+  .ticks {
+    position: relative;
+  }
+
+  .ticks::before,
+  .ticks::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-color: var(--color-line-strong);
+    border-style: solid;
+    pointer-events: none;
+  }
+
+  .ticks::before {
+    top: -1px;
+    left: -1px;
+    border-width: 1px 0 0 1px;
+  }
+
+  .ticks::after {
+    right: -1px;
+    bottom: -1px;
+    border-width: 0 1px 1px 0;
+  }
+
+  /* Measured grid, used behind the hero only. Fades out downward so it reads
+     as a backdrop rather than a texture.
+
+     The grid lives on a pseudo-element because `mask-image` masks an element's
+     content as well as its background — applied to the section itself it would
+     fade the hero copy along with the lines. */
+  .grid-bg {
+    position: relative;
+  }
+
+  .grid-bg::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(148, 166, 191, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 166, 191, 0.07) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center top;
+    mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  }
+
+  .grid-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Live indicator dot. */
+  .live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-signal);
+    box-shadow: 0 0 0 3px var(--color-signal-dim);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .live-dot {
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Long-form article styles
+
+   Deliberately unlayered so they override the typography plugin's defaults.
+   --------------------------------------------------------------------------- */
+
 .prose .katex-display {
-  margin: 1.5rem 0;
+  margin: 1.75rem 0;
   overflow-x: auto;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  background: var(--color-ink);
+  padding: 1.25rem;
   color: #dbeafe;
 }
 
 .prose .math-label {
   margin-bottom: -0.75rem;
-  color: #7dd3fc;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  color: var(--color-signal);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-::selection {
-  background: rgba(56, 189, 248, 0.35);
+.prose :where(code):not(:where(pre code)) {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-chip);
+  background: var(--color-ink);
+  padding: 0.1em 0.35em;
+  font-weight: 400;
 }
 
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-  background-size: 36px 36px;
+.prose :where(code):not(:where(pre code))::before,
+.prose :where(code):not(:where(pre code))::after {
+  content: "";
+}
+
+.prose :where(blockquote) {
+  border-left-width: 2px;
+  border-left-color: var(--color-signal-dim);
+  font-style: normal;
 }
