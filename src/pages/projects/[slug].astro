@@ -33,14 +33,16 @@ const { Content } = await render(project);
         </h1>
         <p class="mt-6 max-w-3xl text-xl leading-8 text-slate-300">{project.data.description}</p>
       </div>
-      <a
-        href={project.data.externalUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex w-fit items-center justify-center rounded-full bg-signal px-6 py-3 text-sm font-semibold text-ink transition hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
-      >
-        Visit {project.data.title}&nbsp;↗
-      </a>
+      {project.data.externalUrl && (
+        <a
+          href={project.data.externalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex w-fit items-center justify-center rounded-full bg-signal px-6 py-3 text-sm font-semibold text-ink transition hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+        >
+          Visit {project.data.title}&nbsp;↗
+        </a>
+      )}
     </div>
 
     {project.data.heroImage && (

@@ -14,7 +14,12 @@ $$
 A(s, t) = V(s)e^{-\lambda \operatorname{age}(s,t)}
 $$
 
-This is not a universal law. It is a useful design instinct. The actionability of a signal decays with time. A stale event can still be historically interesting, but in a live system it becomes less useful for operational decisions every second it remains unprocessed or unexplained.
+$s$ is a signal, $V(s)$ is its value when current, and $age(s,t)$ is how old it
+is at decision time $t$. $\lambda$ is the domain-specific decay rate. The
+exponential term starts at one and shrinks toward zero, so larger age or a
+larger $\lambda$ reduces actionability $A$. This is not a universal law. It is
+a design instinct: a stale event may remain historically interesting while
+becoming less useful for a live decision.
 
 That observation changes architecture. In a true decision system, you need:
 
@@ -32,7 +37,11 @@ $$
 x_{t+1} = \operatorname{reduce}(x_t, e_{t+1})
 $$
 
-That is the hidden reason so many dashboards disappoint. They skip the reduction logic and ask the operator to perform it manually with their eyes and memory.
+$x_t$ is the system's current state and $e_{t+1}$ is the next ordered event.
+$reduce$ is a deterministic transition function that applies the event and
+returns $x_{t+1}$. Replaying the same initial state and event sequence should
+produce the same result. Many dashboards skip this reduction logic and ask the
+operator to reconstruct state manually with eyes and memory.
 
 Reactive systems, microservices, orchestration, sockets, pushes, and offline-capable mobile clients all reinforced another lesson: low latency is valuable, but predictable latency is often more valuable. Operators can adapt to known delay. They struggle when the system randomly mixes fresh and stale state while presenting both with equal confidence.
 

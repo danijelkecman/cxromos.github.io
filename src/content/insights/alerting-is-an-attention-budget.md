@@ -16,6 +16,12 @@ $$
 P(\text{event} \mid \text{alert}) = \frac{p \cdot TPR}{p \cdot TPR + (1-p) \cdot FPR}
 $$
 
+$p$ is the event's prevalence in one evaluation window, $TPR$ is the fraction
+of real events that trigger an alert, and $FPR$ is the fraction of normal
+windows that trigger one incorrectly. The numerator counts true alerts. The
+denominator adds true and false alerts, so the ratio is the probability that
+an alert corresponds to a real event.
+
 Take a condition with prevalence `p = 0.001` per evaluation window and a detector with a 99% true-positive rate and a 1% false-positive rate. That detector sounds excellent in isolation. Its precision in production is about 9%. Ten false alarms arrive for every real one, and the operator's trust in the channel converges toward that ratio. This is the same base-rate arithmetic that medicine ran into with clinical alarms and aviation ran into with master caution philosophy. Software monitoring is rediscovering it one paging rotation at a time.
 
 The fix is not better thresholds alone. It is treating severity as a contract. A page means a human must act within minutes. A warning means a human must see it today. An info event means the system is narrating for later forensics. Each level keeps its meaning only if every alert filed under it honors the promise. One mis-filed alert is noise; a habit of them redefines the level downward, and then the real page arrives into a room that has stopped listening.

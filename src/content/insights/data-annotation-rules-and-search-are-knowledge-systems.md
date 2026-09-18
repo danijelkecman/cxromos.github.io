@@ -16,7 +16,12 @@ $$
 K = normalize(raw) + annotate(raw) + link(raw, context) + provenance(raw)
 $$
 
-The formula is informal, but the engineering point is concrete. A pipeline that loses provenance may still produce search results, but it cannot explain why those results deserve trust.
+$raw$ is the source record and $K$ is the usable knowledge produced from it.
+The four functions standardise the record, attach classifications, connect it
+to relevant context, and retain its origin. The plus signs mean composition of
+evidence, not numeric addition. The formula is informal, but the engineering
+point is concrete. If any term is missing, especially provenance, the pipeline
+may still produce search results but cannot explain why they deserve trust.
 
 Business rules engines are useful because they make part of the reasoning explicit.
 
@@ -26,7 +31,14 @@ $$
 y = f_{rules}(x) + f_{model}(x) + \epsilon
 $$
 
-Rules give determinism and auditability. Models and NLP give flexibility over messy language. The error term is always there. Good systems make it visible by carrying confidence, source, and decision trace.
+$x$ is the input record and $y$ is the resulting classification or decision.
+$f_{rules}$ is the deterministic contribution from explicit rules,
+$f_{model}$ is the contribution from a statistical or language model, and
+$\epsilon$ collects error and unexplained variation. The plus signs describe a
+hybrid decision, not necessarily literal arithmetic. Rules give determinism
+and auditability, while models give flexibility over messy language. Good
+systems expose the remaining error through confidence, source, and decision
+trace.
 
 Map and location data make this particularly clear. Data from many providers may describe the same real-world object using different names, geometry, classifications, and freshness. The integration problem is not simply "merge rows." It is entity resolution under disagreement.
 
@@ -36,7 +48,12 @@ $$
 P(e_i = e_j \mid features, source, time) > \tau
 $$
 
-A threshold `\tau` is never just a number. Set it too low and the system merges things that should remain separate. Set it too high and the graph fragments. Every threshold encodes a product decision.
+$e_i$ and $e_j$ are records that may describe the same real-world entity. The
+probability is conditioned on their matching features, provider reliability,
+and observation time. $\tau$ is the acceptance threshold: above it the records
+are linked, below it they remain separate. Set $\tau$ too low and the system
+merges different things. Set it too high and one entity fragments into several
+records. Every threshold encodes a product decision.
 
 Search systems reveal the same tension. Indexing is not storage. Ranking is not neutrality. Tokenization, stemming, synonyms, field boosts, recency, and authority all shape what users believe the system knows.
 

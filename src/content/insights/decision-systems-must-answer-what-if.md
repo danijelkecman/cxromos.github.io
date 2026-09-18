@@ -14,7 +14,13 @@ $$
 s_{t+1} = f(s_t, a, w)
 $$
 
-A decision system needs some version of `f`: given current state, a candidate action `a`, and exogenous factors `w` - weather, demand, failures, the actions of others - what state follows. The model does not need to be perfect. It needs to be explicit, so its assumptions can be inspected, and cheap enough to evaluate several actions while the decision is still open.
+$s_t$ is the current state, $a$ is one candidate action, and $w$ contains
+external factors such as weather, demand, failures, and the actions of others.
+The forward model $f$ combines them to estimate the next state $s_{t+1}$. A
+decision system evaluates the same starting state under several values of $a$
+so their consequences can be compared. The model does not need to be perfect.
+It needs explicit assumptions and must be cheap enough to run while the
+decision is still open.
 
 Ranking the options is half the answer. The other half is how fragile the ranking is.
 
@@ -24,7 +30,13 @@ $$
 \frac{\partial J(\pi^*)}{\partial w}
 $$
 
-If the preferred option beats the runner-up by a margin that a 10-knot wind shift erases, the system should say so, because that margin is the real content of the decision. A recommendation without its sensitivity is a coin flip presented with confidence.
+$J$ is the cost or value assigned to a policy, $\pi^*$ is the currently
+preferred policy, and $w$ is an external assumption. The partial derivative
+measures how quickly the winner's score changes when that assumption moves
+while the others are held fixed. A large magnitude means the recommendation is
+fragile. If a 10-knot wind shift erases the winner's margin, the system should
+say so. A recommendation without its sensitivity is a coin flip presented with
+confidence.
 
 Building what-if into an operational product imposes requirements that pure reporting never does:
 

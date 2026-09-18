@@ -25,7 +25,13 @@ $$
 \quad \text{s.t.} \quad C_{reg}(a, x_t)=\mathrm{true},\; source(a)\neq\varnothing
 $$
 
-Choose an action only if it lowers risk and uncertainty inside the allowed constraint set. The `source(a)` term matters as much as the math. A recommendation without provenance has no operational weight.
+$A$ is the set of candidate actions and $\hat a$ is the selected one. $x_t$ is
+the operational state at time $t$, $R$ estimates the action's risk, and $U$
+estimates unresolved uncertainty. $\lambda$ sets how strongly uncertainty is
+penalised relative to risk. The constraint $C_{reg}$ removes actions that
+violate regulation, while $source(a)\neq\varnothing$ requires evidence for the
+recommendation. The solver chooses the remaining action with the lowest
+combined cost. A recommendation without provenance has no operational weight.
 
 Fuel is a good example because it looks simple until the system has to explain it. The fuel number is not one scalar. It is a structured operational argument.
 
@@ -35,7 +41,13 @@ $$
 m_f = m_{trip} + m_{cont} + m_{alt} + m_{final} + m_{extra}
 $$
 
-Each term carries assumptions: route, wind, mass, altitude, alternates, contingency policy, and operational judgment. If AI summarizes a fuel impact, it should be able to say which term changed and why.
+$m_f$ is total required fuel mass. $m_{trip}$ covers the planned flight,
+$m_{cont}$ covers contingency policy, $m_{alt}$ covers flight to an alternate,
+$m_{final}$ preserves the final reserve, and $m_{extra}$ captures fuel added by
+operational judgment. The terms add because each protects a different phase or
+uncertainty. Each one also carries assumptions about route, wind, aircraft
+mass, altitude, alternates, and policy. If AI summarizes a fuel impact, it
+should be able to say which term changed and why.
 
 Aviation software inherits every old systems problem at once. It is realtime, distributed, mobile, geospatial, document-heavy, and audit-sensitive. A flight-planning or ops product is not a map with buttons. It is a stateful system with latency, trust, and failure modes.
 

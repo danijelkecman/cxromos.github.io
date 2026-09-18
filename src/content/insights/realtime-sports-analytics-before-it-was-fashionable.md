@@ -16,7 +16,12 @@ $$
 V(stat, t) = Impact(stat) \cdot P(action \mid stat) \cdot e^{-\lambda t}
 $$
 
-A statistic with high retrospective value may have low live value if it arrives too late or cannot suggest an action. A simple observation delivered at the right moment can matter more than a complex metric discovered after the match.
+$V(stat,t)$ is the live decision value of a statistic after delay $t$.
+$Impact(stat)$ measures the benefit if it is used, $P(action\mid stat)$ is the
+probability that it changes a decision, and $\lambda$ controls how quickly its
+value expires. The exponential term equals one at delivery and decays toward
+zero with delay. A high-impact statistic can therefore have low live value if
+it arrives too late or cannot suggest an action.
 
 Game simulation gives the same lesson in another form. A match is a state process. The current score, time, fouls, possession, player fatigue, defensive shape, and shot quality all change expected outcomes.
 
@@ -26,7 +31,12 @@ $$
 EV(s) = \sum_a P(a \mid s) \cdot Reward(a, s)
 $$
 
-The exact model can be simple or sophisticated. The useful part is the discipline: define the state, observe transitions, estimate value, and feed the conclusion back into human judgment quickly enough to matter.
+$s$ is the current game state and $a$ ranges over possible outcomes or next
+actions. $P(a\mid s)$ is the probability of each outcome from that state, and
+$Reward(a,s)$ is its value. Multiplying probability by reward and summing gives
+expected possession value. The exact model can be simple or sophisticated.
+The useful discipline is to define state, estimate transitions, and return the
+conclusion quickly enough to affect judgment.
 
 Video analysis adds a spatial layer. The same event has different meaning depending on position, spacing, timing, and defensive pressure. That is not far from route intelligence or operational monitoring. Geometry and time turn events into context.
 

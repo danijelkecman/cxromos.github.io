@@ -19,7 +19,12 @@ x^{remote}_{t+k} &= \operatorname{reconcile}(x^{remote}_t, \log(e_1,\dots,e_t))
 \end{aligned}
 $$
 
-The local device has state. The backend has state. They diverge, converge, and sometimes race. The user keeps tapping while all of that happens.
+$x^{local}_t$ and $x^{remote}_t$ are device and server state at time $t$.
+$e_t$ is a local event, and $reduce$ applies it immediately to produce the
+next local state. $\log(e_1,\dots,e_t)$ is the ordered event history sent to
+the server. After network delay $k$, $reconcile$ combines that history with
+remote state. The equations expose two clocks: local interaction continues now
+while convergence happens later.
 
 This is why offline support is not a feature toggle. It is a consistency strategy. Engineers have to decide what can be optimistic, what must be confirmed, what is idempotent, what can be replayed, and what must block. Those are distributed systems questions disguised as mobile product questions.
 
@@ -29,7 +34,13 @@ $$
 R_{user} \approx f(localFeedback, syncConfidence, conflictVisibility)
 $$
 
-Users tolerate delayed synchronization more than they tolerate silent ambiguity. If an action is accepted locally and reconciled clearly, the product can feel fast even in imperfect connectivity. If state flips unpredictably after the fact, trust evaporates.
+$R_{user}$ is perceived responsiveness rather than network latency alone.
+$localFeedback$ is how quickly the device acknowledges an action,
+$syncConfidence$ is how clearly the product communicates whether it will
+persist, and $conflictVisibility$ is how well divergence is exposed and
+resolved. The function $f$ is qualitative: strong local feedback cannot
+compensate indefinitely for hidden conflicts. Users tolerate delayed sync more
+than silent ambiguity.
 
 Realtime delivery systems, telemetry clients, city platforms, and production mobile deployments all reinforce another point: background synchronization is part scheduling theory, part operating-system diplomacy. Mobile platforms constantly negotiate battery, memory, connectivity, and user priority. The sync engine has to be designed with those limits in mind.
 
@@ -40,6 +51,12 @@ One small technical detail carries a lot of weight:
 $$
 \operatorname{apply}(c, x) = \operatorname{apply}(c, \operatorname{apply}(c, x))
 $$
+
+$x$ is the starting state and $c$ is a command carrying a stable identity.
+The left side applies it once. The right side applies the same command twice.
+Equality means retries have no additional effect after the first success. The
+property lets a client resend after a timeout without duplicating a payment,
+delivery, or state transition.
 
 I also think offline-capable systems force better domain modeling. The moment connectivity becomes unreliable, hand-wavy data semantics stop working. You need explicit event types, stable identifiers, merge rules, causal thinking, and better audit trails. In that sense, the network is a teacher. It punishes sloppy architecture.
 

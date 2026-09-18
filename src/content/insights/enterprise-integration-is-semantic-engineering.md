@@ -16,7 +16,11 @@ $$
 I_B(M_{A \to B}(x_A)) = I_A(x_A)
 $$
 
-`M_{A \to B}` is the mapping from system A to system B. `I_A` and `I_B` represent the meaning each system assigns to the data. The equation is the ideal. In real work, the interesting engineering happens where it does not hold.
+$x_A$ is a value in system A and $M_{A\to B}$ transforms it into system B's
+representation. $I_A$ and $I_B$ are the business meanings each system assigns
+to its representation. The equality says the mapped value should mean the same
+thing after crossing the boundary. It is the ideal. In real work, the
+interesting engineering happens where it does not hold.
 
 A bill of materials is not just a nested list. It encodes manufacturing intent, versioning, substitutions, pricing, inventory implications, and sometimes physical reality on the factory floor. A customer record is not just a row. It carries consent, billing rules, support history, risk, and ownership. Once systems disagree about those meanings, APIs alone cannot save the architecture.
 
@@ -28,7 +32,12 @@ $$
 producer \models C \quad \land \quad consumer \models C
 $$
 
-If both sides satisfy the contract, integration remains stable even when the implementations evolve. If the contract is vague, every downstream service becomes a detective.
+$C$ is the shared contract and $\models$ means "satisfies." The left statement
+requires the producer to emit valid messages. The right requires the consumer
+to interpret that same contract correctly. The logical AND means both must
+hold. If either side breaks $C$, compatibility is lost even when the other side
+is correct. If the contract is vague, every downstream service becomes a
+detective.
 
 The older enterprise stacks taught this lesson very clearly. SOAP, WS-* standards, WCF, WIF, and ESB-style orchestration were heavy, but they forced teams to think about contracts, security, and message shape. Modern REST and event systems are lighter, but the same obligations remain. We just have fewer ceremony cues reminding us to do the hard thinking.
 
@@ -48,6 +57,12 @@ $$
 T_{system} \leq \min_i T_i
 $$
 
-This is why orchestration work is never only plumbing. It is business semantics, queuing theory, failure recovery, and organizational negotiation wrapped in software.
+$T_i$ is the sustainable throughput of pipeline stage $i$, and $T_{system}$ is
+the throughput of the complete serial pipeline. The minimum selects the
+slowest stage, so the system cannot process work faster than its bottleneck.
+Queues can absorb short bursts but cannot raise this long-run bound. This is
+why orchestration work is never only plumbing. It is business semantics,
+queuing theory, failure recovery, and organizational negotiation wrapped in
+software.
 
 The most durable integration systems I have seen share one trait: they make the implicit explicit. Ownership, contracts, transformations, retries, and failure semantics are visible. That visibility is not bureaucracy. It is how complex companies keep moving without silently corrupting their own understanding of the business.

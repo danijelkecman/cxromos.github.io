@@ -16,7 +16,13 @@ $$
 Q_{\text{out}} = G \cdot Q_{\text{in}}
 $$
 
-Automation is a gain stage. It multiplies whatever quality of process you feed into it. If the input process is clear, gain produces leverage. If the input process encodes ambiguity - unowned decisions, duplicated state, conflicting sources of truth - gain produces noise at scale. The tool never decides which; the thinking behind it already did.
+$Q_{\text{in}}$ is the quality of the process before automation,
+$Q_{\text{out}}$ is the quality expressed at system scale, and $G$ is the
+automation gain: volume, speed, or reach. This is an analogy rather than a
+measured law. Multiplication is the point. A clear input process gains leverage,
+while ambiguity - unowned decisions, duplicated state, conflicting sources of
+truth - becomes noise at scale. The tool never decides which; the thinking
+behind it already did.
 
 This is why every system I build starts with mapping logic, not selecting platforms:
 

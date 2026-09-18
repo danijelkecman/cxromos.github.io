@@ -21,7 +21,13 @@ $$
 \mathbb{E}[L] = PD \cdot LGD \cdot EAD
 $$
 
-The formula is standard, but the engineering implication is often underappreciated. Software design changes each term. Better validation reduces probability of default-like failure modes. Better transaction controls limit exposure at default. Better reconciliation and process design reduce loss severity when something goes wrong.
+$\mathbb{E}[L]$ is expected loss. $PD$ is probability of default, $LGD$ is the
+fraction of exposure lost after recoveries, and $EAD$ is the amount exposed
+when default occurs. Multiplication weights the possible loss by both its
+likelihood and severity. The formula is standard, but the engineering
+implication is often underappreciated. Better validation can reduce failure
+probability, transaction controls can limit exposure, and reconciliation can
+reduce loss severity.
 
 Payments introduce a second frame that is more operational:
 
@@ -31,7 +37,13 @@ $$
 U = \alpha_s Speed + \alpha_a Availability + \alpha_t Trust - \beta_f Friction - \beta_r FraudRisk
 $$
 
-No payment product maximizes all of these simultaneously. Faster settlement can increase operational risk. Lower friction can increase fraud exposure. More verification can reduce fraud while hurting adoption. Product and engineering decisions are really choices about the shape of that utility function.
+$U$ is the product's combined utility. Speed, availability, and trust add
+value, weighted by the $\alpha$ coefficients. Friction and fraud risk subtract
+value, weighted by the $\beta$ coefficients. Larger coefficients represent
+what the product or institution values more strongly. No payment product
+maximizes every factor simultaneously. Faster settlement can increase
+operational risk, while more verification can reduce fraud and hurt adoption.
+Product decisions choose the shape of this utility function.
 
 This is one reason I value architecture so much in fintech. A fragmented banking codebase does not just slow development down. It creates economic drag. It raises the cost of compliance changes, slows time to market, increases defect risk, and makes the institution less able to respond to new payment behaviors.
 
@@ -47,7 +59,12 @@ $$
 V_{info}(t) = V_0 e^{-kt}
 $$
 
-The exact constants vary. The engineering lesson does not. In finance, stale but polished data can be more dangerous than noisy data that is correctly labeled as delayed.
+$V_0$ is the information's value when it is current, $t$ is its age, and $k$
+is the decay rate for the decision being made. The exponential term starts at
+one and shrinks toward zero as age increases. A larger $k$ means the signal
+becomes obsolete faster. The exact constants vary. The engineering lesson does
+not. In finance, stale but polished data can be more dangerous than noisy data
+that is correctly labelled as delayed.
 
 The ledger gives another useful invariant:
 
@@ -57,4 +74,9 @@ $$
 \sum_i debit_i - \sum_j credit_j = 0
 $$
 
-That invariant is more than accounting hygiene. It is the reason idempotency, reconciliation, audit trails, and transactional boundaries matter so much. Good financial products do not merely move data correctly. They move economic confidence correctly.
+$debit_i$ is each debit posting and $credit_j$ is each credit posting in the
+same balanced transaction. The sums must be equal, so subtracting one side
+from the other yields zero. This is an invariant rather than an estimate: a
+non-zero result means value was created, lost, duplicated, or incompletely
+recorded. It is why idempotency, reconciliation, audit trails, and
+transactional boundaries matter so much.

@@ -24,7 +24,12 @@ $$
 y_t = h(x_t, v_t)
 $$
 
-`x_t` is the latent system state, `u_t` the control or input, `w_t` process noise, `y_t` the measurement, and `v_t` measurement noise. Even when the production software is not literally running a Kalman filter, the mindset is still useful: the reading is not the state.
+$x_t$ is the latent system state, $u_t$ is the control or external input, and
+$w_t$ is process noise that captures unmodelled change. The transition function
+$f$ estimates the next state. $y_t$ is the sensor reading, $v_t$ is measurement
+noise, and $h$ describes how the hidden state becomes an observation. Even
+when production software is not literally running a Kalman filter, the
+separation matters: the reading is not the state.
 
 That matters in industrial and city systems because sensed variables often interact. Air quality, water signals, soil measurements, machine telemetry, or fleet data each arrive with different timing and reliability characteristics. A clean product has to carry provenance and confidence, not just values.
 
@@ -36,7 +41,13 @@ $$
 I \approx y_t \cdot Confidence(y_t) \cdot Freshness(y_t)
 $$
 
-I like this framing because it prevents false certainty. A fresh but noisy signal should be treated differently from a stale but historically reliable signal. A missing packet should not be mistaken for a stable condition. A flat line may mean inactivity, disconnection, or sensor failure. Those states are operationally different.
+$I$ is the operational interpretation derived from measurement $y_t$.
+$Confidence(y_t)$ discounts unreliable or noisy evidence, and $Freshness(y_t)$
+discounts evidence as it ages. Multiplication makes either weak factor reduce
+the measurement's influence. The expression is a design heuristic, not a
+universal estimator. It prevents a stale but historically reliable signal from
+being treated like a fresh one, and prevents a missing packet from being
+mistaken for stable state.
 
 Telemetry mobile apps and sensor platforms also reinforce the importance of edge-to-cloud coordination. If ingestion, mobile display, alerting, and backend analytics each interpret the same signal differently, the system becomes internally inconsistent. The hardest bug class in these products is often semantic drift rather than code failure.
 

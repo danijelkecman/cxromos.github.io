@@ -14,7 +14,13 @@ $$
 d_{t+1} = d_t + \operatorname{drift}(a_t) - \operatorname{evidence}(y_t)
 $$
 
-This is a design instinct, not a law. Every silent automatic transition adds drift between the system's state and the operator's model of it. Every observable, attributable state change removes some. A system whose transitions are mostly silent guarantees that divergence grows until something forces a correction, usually an incident.
+$d_t$ is the divergence between actual system state and the operator's mental
+model at time $t$. $a_t$ is an automated action, and $drift(a_t)$ is the
+misunderstanding added when that action is silent or surprising. $y_t$ is the
+evidence visible to the operator, and $evidence(y_t)$ is the divergence it
+removes. This is a design instinct, not a measured law. When silent transitions
+add more than visible evidence removes, divergence grows until an incident
+forces a correction.
 
 The software versions are everywhere once you look for them. A failover that switches regions without announcing itself, so latency graphs change shape and nobody knows why. A sync engine that resolves a write conflict by policy but records nothing, so a field appears to revert on its own. A retry layer that turns one user action into five requests, so downstream metrics describe traffic that no human generated. A rollback automation that flips a feature flag during the night. In each case the system did what it was built to do, and the operator spends the incident debugging the automation instead of the fault.
 

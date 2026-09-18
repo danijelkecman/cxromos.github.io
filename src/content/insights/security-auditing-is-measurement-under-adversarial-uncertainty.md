@@ -20,7 +20,12 @@ $$
 Risk = Exposure \cdot Exploitability \cdot Impact \cdot Confidence
 $$
 
-The `Confidence` term matters. A high-impact finding based on a weak signal should be handled differently from the same finding confirmed through multiple independent observations.
+$Exposure$ measures how reachable the asset is, $Exploitability$ measures how
+feasible an attack is, $Impact$ measures the harm if it succeeds, and
+$Confidence$ measures the strength of the evidence. Multiplication makes a low
+factor reduce the combined estimate. The confidence term is especially
+important: a high-impact finding based on a weak signal should be handled
+differently from the same finding confirmed by independent observations.
 
 This is where vulnerability feeds become powerful. Connecting scan results to security bulletins and early Linux distribution advisories changes the system from inventory software into a live reasoning engine. The product is no longer just asking "what is installed?" It is asking "which observed facts imply which threats today?"
 
@@ -32,7 +37,13 @@ $$
 Cost = c_{fp}P(FP) + c_{fn}P(FN)
 $$
 
-Different organizations choose different tradeoffs. A noisy internal scan may be acceptable if the cost of missing a critical exposure is high. A management report needs higher confidence and clearer explanation. The same engine has to serve both without pretending the uncertainty disappeared.
+$P(FP)$ and $P(FN)$ are the probabilities of false positives and false
+negatives. $c_{fp}$ is the cost of investigating a false alarm, while $c_{fn}$
+is the cost of missing a real exposure. Each probability is weighted by its
+consequence, then the two expected costs are added. Different organizations
+choose different weights. A noisy internal scan may be acceptable when
+$c_{fn}$ is high, while a management report may put more weight on avoiding
+false accusations.
 
 Autonomous agents add another layer. They can collect richer local evidence, but they introduce deployment, trust, and update concerns. Agentless scanning is lighter, but it sees less. The best systems do not make this a religious argument. They combine methods and preserve provenance.
 
