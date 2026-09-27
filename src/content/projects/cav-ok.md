@@ -1,7 +1,7 @@
 ---
 title: "CAV-OK"
-description: "Aviation weather for iPhone and iPad that turns station reports into a regional picture pilots can read at a glance."
-summary: "An offline-capable aviation weather app that maps METAR observations and TAF forecasts across a pilot-defined region, then exposes the reports, trends, and route context behind the picture."
+description: "Aviation weather for iPhone and iPad that turns METAR observations and TAF forecasts into a regional picture pilots can read at a glance."
+summary: "An offline-capable aviation weather app with regional heatmaps, station trends, and weather along a route."
 date: "2026-09-18"
 heroImage: "/images/projects/cav-ok-ipad-heatmap.png"
 heroAlt: "CAV-OK regional flight-category heatmap on iPad"
@@ -15,9 +15,9 @@ capabilities:
 
 METAR and TAF reports are published one station at a time, while a pilot's
 decision spans a route or a region. CAV-OK turns those point observations into
-an operational map. Flight category, ceiling, visibility, wind, and estimated
-cloud base can be viewed across every reporting station inside a region the
-pilot centres and sizes.
+an operational map. Flight category, ceiling, visibility, wind, and
+temperature-dew-point spread can be viewed across every reporting station
+inside a region the pilot centres and sizes.
 
 The map remains useful when connectivity does not. A global basemap ships with
 the app, the most recently fetched weather remains readable offline, and stale
@@ -26,10 +26,10 @@ or unavailable data is identified instead of being presented as current.
 ## From overview to evidence
 
 The timeline moves through recent observations and into the TAF forecast. A
-station opens into decoded conditions, the raw METAR, observation history, a
-trend chart, and ATIS audio where available. Routes can be entered as airports,
-fixes, or navaids, then drawn as great-circle tracks with nearby reporting
-stations ordered in flight sequence.
+station opens into decoded conditions, the raw METAR, observation history, and
+a trend chart. Routes can be entered as airports, navaids, or US fixes, then
+drawn as great-circle tracks with nearby reporting stations ordered in flight
+sequence.
 
 <div class="not-prose my-10 grid grid-cols-2 gap-4">
   <img src="/images/projects/cav-ok-iphone-heatmap.png" alt="CAV-OK regional flight-category heatmap on iPhone" class="rounded-panel border border-line" loading="lazy" />
@@ -37,6 +37,13 @@ stations ordered in flight sequence.
   <img src="/images/projects/cav-ok-iphone-station.png" alt="CAV-OK station details and weather trend on iPhone" class="rounded-panel border border-line" loading="lazy" />
   <img src="/images/projects/cav-ok-iphone-visibility.png" alt="CAV-OK regional visibility overlay on iPhone" class="rounded-panel border border-line" loading="lazy" />
 </div>
+
+## See it in use
+
+<video controls playsinline preload="none" poster="/images/projects/cav-ok-iphone-heatmap.png" class="mx-auto max-h-[42rem] w-full rounded-panel border border-line bg-black" aria-label="CAV-OK iPhone app demonstration">
+  <source src="/videos/projects/cxavok-review-iphone16pro.mp4" type="video/mp4" />
+  <a href="/videos/projects/cxavok-review-iphone16pro.mp4">Watch the CAV-OK iPhone demonstration</a>
+</video>
 
 ## Interpolating the regional heatmap
 
@@ -148,9 +155,10 @@ the order the aircraft reaches them.
 
 ## Built for situational awareness
 
-CAV-OK combines live AviationWeather.gov METAR and TAF data with a bundled
-aviation reference database, offline vector and relief maps, background
-refresh, a home-screen widget, and optional Finnish AWS-METAR observations.
+CAV-OK combines live AviationWeather.gov METAR and TAF data with Finnish
+Meteorological Institute observations, a bundled airport and navigation
+database sourced from OurAirports and the FAA, offline vector and relief maps,
+background refresh, and a home-screen widget.
 The heatmap is computed with Metal on the GPU, with a CPU fallback, and its
 raster size is bounded to fit real mobile-device memory.
 
