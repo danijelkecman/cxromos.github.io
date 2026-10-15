@@ -26,5 +26,10 @@ assert.match(cavok, /Great-circle cross-track distance/);
 assert.match(cavok, /alt="CAV-OK regional flight-category heatmap on iPad"/);
 assert.match(cavok, /alt="CAV-OK wind overlay on iPhone"/);
 assert.doesNotMatch(cavok, /Visit CAV-OK/);
+assert.match(
+  cavok,
+  /href="https:\/\/apps\.apple\.com\/us\/app\/cxavok\/id6809019541"[^>]*>\s*<img[^>]*src="\/images\/app-store-badge\.svg"[^>]*alt="Download on the App Store"[\s\S]*src="\/images\/projects\/cav-ok-ipad-heatmap\.png"/
+);
+assert.doesNotMatch(detail, /app-store-badge/);
 
 console.log('Project page contracts passed.');

@@ -33,7 +33,22 @@ const { Content } = await render(project);
         </h1>
         <p class="mt-6 max-w-3xl text-xl leading-8 text-slate-300">{project.data.description}</p>
       </div>
-      {project.data.externalUrl && (
+      {project.data.appStoreUrl ? (
+        <a
+          href={project.data.appStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex w-fit rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+        >
+          <img
+            src="/images/app-store-badge.svg"
+            alt="Download on the App Store"
+            width="144"
+            height="48"
+            class="h-12 w-auto"
+          />
+        </a>
+      ) : project.data.externalUrl && (
         <a
           href={project.data.externalUrl}
           target="_blank"

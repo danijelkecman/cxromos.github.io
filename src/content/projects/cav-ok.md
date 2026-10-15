@@ -3,6 +3,7 @@ title: "CAV-OK"
 description: "Aviation weather for iPhone and iPad that turns METAR observations and TAF forecasts into a regional picture pilots can read at a glance."
 summary: "An offline-capable aviation weather app with regional heatmaps, route weather, widgets, and Siri shortcuts."
 date: "2026-10-05"
+appStoreUrl: "https://apps.apple.com/us/app/cxavok/id6809019541"
 heroImage: "/images/projects/cav-ok-ipad-heatmap.png"
 heroAlt: "CAV-OK regional flight-category heatmap on iPad"
 capabilities:
