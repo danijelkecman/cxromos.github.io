@@ -1,6 +1,6 @@
 ---
 title: "CAV-OK"
-description: "Aviation weather for iPhone and iPad that turns METAR observations and TAF forecasts into a regional picture pilots can read at a glance."
+description: "Aviation weather for iPhone, iPad, and iPhone Duo that turns METAR observations and TAF forecasts into a regional picture pilots can read at a glance."
 summary: "An offline-capable aviation weather app with regional heatmaps, route weather, widgets, and Siri shortcuts."
 date: "2026-10-05"
 appStoreUrl: "https://apps.apple.com/us/app/cxavok/id6809019541"
@@ -12,7 +12,7 @@ capabilities:
   - "Offline iOS"
 ---
 
-[How to use the app](#how-to-use-cav-ok) · [Widgets](#widgets) ·
+[How to use the app](#how-to-use-cav-ok) · [iPhone Duo](#iphone-duo) · [Widgets](#widgets) ·
 [Siri and Shortcuts](#siri-and-shortcuts) · [Airport downloads](#airport-data-and-settings)
 
 ## Weather as a region, not a list
@@ -54,9 +54,15 @@ sequence.
 METAR widgets bring station conditions to the Home Screen and Lock Screen,
 and a Favorites widget compares saved stations. App Intents let Siri and
 Shortcuts report station weather, find the nearest VFR field, estimate runway
-crosswind, or open a station in the app. Widgets and Siri require version 1.1
-or later; the release notes in the app repository mark that version as awaiting
-upload.
+crosswind, or open a station in the app. Say the app's name as **CAVOK**
+("cav okay"), before or after the request.
+
+Version 1.1 also adds a layout for iPhone Duo, closed and open, and a new
+launch screen: a dawn horizon with ridgelines marked 2, 5, and 10 km, the
+visibility that CAVOK stands for.
+
+The App Store currently offers version 1.0.27. Widgets, Siri, and the iPhone
+Duo layout arrive with version 1.1, which is being prepared for release.
 
 Airport reference data is now an optional download. Choose **Download** or
 **Cancel** when asked, and use **Settings → Airport Data → Download Data**
@@ -65,8 +71,8 @@ if you skip it.
 
 ## How to use CAV-OK
 
-CAV-OK appears as **CxAVOK** on your device. The current app requires an iPhone
-or iPad with iOS or iPadOS 26 or later.
+CAV-OK appears as **CxAVOK** on your device. The current app requires an iPhone,
+iPad, or iPhone Duo with iOS or iPadOS 26 or later.
 
 ### Get started
 
@@ -142,6 +148,37 @@ are not included in the app's openly licensed reference data.
   <figcaption class="mt-3 text-center text-sm text-slate-400">Search by airport code or name, or enter a route</figcaption>
 </figure>
 
+### iPhone Duo
+
+*Version 1.1 and later.*
+
+Closed, iPhone Duo keeps its clock, Wi-Fi, and camera in a column on the right
+edge. CAV-OK places the map buttons directly under that column and moves the
+**Cat**, **Ceil**, **Vis**, **Wind**, and **Spread** picker to the bottom of
+the map, across the full width of the screen. When the weather panel is open,
+the picker rides on top of it, so it stays in reach at every panel height.
+
+The panel spans the full width of the screen. Pulled all the way up, its rows
+narrow to clear the clock and Wi-Fi, and widen again on the way down. Drag the
+handle at its top, or tap the handle to step it up a height.
+
+<div class="not-prose my-10 grid grid-cols-2 gap-4">
+  <img src="/images/projects/cav-ok-iphone-duo-heatmap.jpg" alt="CxAVOK on a closed iPhone Duo with the map buttons under the status icons and the overlay picker on top of the weather panel" class="rounded-panel border border-line" loading="lazy" />
+  <img src="/images/projects/cav-ok-iphone-duo-station.jpg" alt="CxAVOK on a closed iPhone Duo showing Helsinki-Vantaa station details in the full-width panel" class="rounded-panel border border-line" loading="lazy" />
+</div>
+
+Open, the left half is the map, laid out as on any iPhone. The right half
+replaces the bottom panel with **Search**, **Station**, and **Route** tabs
+above the timeline. Only the tabs step aside for the clock and Wi-Fi; the
+lists, station details, and timeline below them use the full width. Tapping a
+station on the map switches to **Station** without clearing what you typed in
+**Search**.
+
+<figure class="not-prose my-10">
+  <img src="/images/projects/cav-ok-iphone-duo-open-station.jpg" alt="CxAVOK on an open iPhone Duo with the flight-category map on the left and Helsinki-Vantaa station details, trend, and timeline on the right" class="w-full rounded-panel border border-line" loading="lazy" />
+  <figcaption class="mt-3 text-sm text-slate-400">Open, the map and the station details sit side by side</figcaption>
+</figure>
+
 ### Widgets
 
 Version 1.1 adds two widgets. Open the app and load weather before adding
@@ -164,14 +201,15 @@ opens its details in the app.
 
 ### Siri and Shortcuts
 
-Version 1.1 exposes four App Intents in Shortcuts, with Siri phrases for each:
+Version 1.1 exposes four App Intents in Shortcuts, with Siri phrases for each.
+Say the app's name as **CAVOK** ("cav okay"), before the request or after it:
 
 | Action | Example Siri request | Result |
 | --- | --- | --- |
-| Station Weather | “Weather at EFHK in CxAVOK” | Decoded conditions, category, and report age, spoken and shown on a card |
-| Nearest VFR Field | “Nearest VFR field in CxAVOK” | A VFR field within 100 km of the last position the app knew |
-| Crosswind | “Crosswind at EFHK in CxAVOK” | Estimated headwind or tailwind and crosswind, including gusts |
-| Open Station | “Open EFHK in CxAVOK” | Opens that station's details |
+| Station Weather | “Weather at EFHK in CAVOK” or “CAVOK weather at EFHK” | Decoded conditions, category, and report age, spoken and shown on a card |
+| Nearest VFR Field | “Nearest VFR field in CAVOK” or “CAVOK nearest VFR” | A VFR field within 100 km of the last position the app knew |
+| Crosswind | “Crosswind at EFHK in CAVOK” or “CAVOK crosswind at EFHK” | Estimated headwind or tailwind and crosswind, including gusts |
+| Open Station | “Open EFHK in CAVOK” | Opens that station's details |
 
 In Shortcuts, add a CxAVOK action and choose its station. The **Crosswind**
 action can take a runway end such as `22` or `04L`; leave it empty to check
@@ -331,9 +369,9 @@ the order the aircraft reaches them.
 CAV-OK combines live AviationWeather.gov METAR and TAF data with Finnish
 Meteorological Institute observations, a bundled airport and navigation
 database sourced from OurAirports and the FAA, offline vector and relief maps,
-background refresh, and version 1.1 Home Screen and Lock Screen widgets and
-Siri shortcuts. Airport reference downloads are optional and confirmed before
-they start.
+background refresh, and version 1.1 Home Screen and Lock Screen widgets,
+Siri shortcuts, and closed and open iPhone Duo layouts. Airport reference
+downloads are optional and confirmed before they start.
 The heatmap is computed with Metal on the GPU, with a CPU fallback, and its
 raster size is bounded to fit real mobile-device memory.
 
